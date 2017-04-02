@@ -42,17 +42,17 @@
 
 ***Таблица 1:*** Объявление
 
-![img](https://bitbucket.org/repo/nqyGnE/images/1629816559-Screenshot%20from%202017-03-27%2022-28-04.png)
+![Imgur](http://i.imgur.com/jsuNozO.png)
 
 
 ***Таблица 2:*** Категория
 
-![img](https://bitbucket.org/repo/nqyGnE/images/4198312331-8u.png)
+![Imgur](http://i.imgur.com/Ee2kyWN.png)
 
 
 ***Таблица 3:*** Пользователь
 
-![img](https://bitbucket.org/repo/nqyGnE/images/1002854096-uh.png)
+![Imgur](http://i.imgur.com/aRM0eo0.png)
 
 
 **6. Функциональные характеристики**
