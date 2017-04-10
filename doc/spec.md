@@ -40,19 +40,24 @@
 
 **5. Типы данных**
 
-***Таблица 1:*** Объявление
+***Таблица 1:*** Категория
 
-![Imgur](http://i.imgur.com/jsuNozO.png)
+![Imgur](http://i.imgur.com/Af78fFp.png)
 
 
-***Таблица 2:*** Категория
+***Таблица 2:*** Подкатегория
 
-![Imgur](http://i.imgur.com/Ee2kyWN.png)
+![Imgur](http://i.imgur.com/F6Yde05.png)
 
 
 ***Таблица 3:*** Пользователь
 
-![Imgur](http://i.imgur.com/aRM0eo0.png)
+![Imgur](http://i.imgur.com/Gozlfm3.png)
+
+
+***Таблица 4:*** Объявление
+
+![Imgur](http://i.imgur.com/wuowMz1.png)
 
 
 **6. Функциональные характеристики**
