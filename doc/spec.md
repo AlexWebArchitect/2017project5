@@ -44,22 +44,22 @@
 
 ***Таблица 1:*** Категория
 
-![Imgur](http://i.imgur.com/i4FzMBe.png)
+![Imgur](http://i.imgur.com/DCdPP5k.png)
 
 
 ***Таблица 2:*** Подкатегория
 
-![Imgur](http://i.imgur.com/czrSLvJ.png)
+![Imgur](http://i.imgur.com/71sWlVK.png)
 
 
 ***Таблица 3:*** Пользователь
 
-![Imgur](http://i.imgur.com/sVhR1dq.png)
+![Imgur](http://i.imgur.com/uYhXtpt.png)
 
 
 ***Таблица 4:*** Объявление
 
-![Imgur](http://i.imgur.com/NghdtDl.png)
+![Imgur](http://i.imgur.com/L4RYuUT.png)
 
 
 **6. Функциональные характеристики**
