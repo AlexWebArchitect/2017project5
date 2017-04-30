@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
+    "build": "rimraf dist && webpack -p --progress --colors && cpx ./src/posts.json ./dist && node ./src/server",
+    "qq": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +23,7 @@
     "url": "https://github.com/AlexWebArchitect/2017project5/issues"
   },
   "homepage": "https://github.com/AlexWebArchitect/2017project5#readme",
-   "devDependencies": {
+  "devDependencies": {
     "@reactivex/rxjs": "^5.2.0",
     "@types/react": "^15.0.14",
     "@types/react-bootstrap": "0.0.47",
@@ -51,6 +53,7 @@
     "webpack-hot-middleware": "^2.17.1"
   },
   "dependencies": {
+    "axios": "^0.16.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2"
