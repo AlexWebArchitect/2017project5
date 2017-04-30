@@ -13,7 +13,7 @@ export default class PostItem extends React.Component<Props, State> {
         return (
             <div className="well">
                 <h4>{post.title}</h4>
-                <div>{new Date(post.date).toDateString()}</div>
+                <h6>{new Date(post.date).toLocaleDateString('Ru')}</h6>
                 <p>{post.content}</p>
             </div>
         )
