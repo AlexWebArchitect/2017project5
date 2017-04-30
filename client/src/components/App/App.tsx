@@ -1,10 +1,18 @@
 import * as React from 'react'
 import axios from 'axios'
+import PostList from '../PostList'
 
 interface Props {}
-interface State {}
+interface State {
+    posts: PostListItem[]
+}
 
 export default class App extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props)
+        this.state= {posts: []}
+    }
 
    componentDidMount(){
         const options = {
@@ -15,11 +23,14 @@ export default class App extends React.Component<Props, State> {
             // ]
         }
         axios(options)
-        .then(console.log)
+        .then(response => {
+            this.setState({posts: response.data})
+        })
         .catch(console.error)
     }
 
     render() {
-        return <h2> Hello </h2>
+        console.log(this.state.posts.length)
+        return !this.state.posts.length ? null : <PostList posts={this.state.posts}/>
     }
 }
