@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import App from './components/App/App'
 
 ReactDOM.render(
-    <h1>Announcement Board</h1>,
+    <App/>,
     document.getElementById('layout') 
 )

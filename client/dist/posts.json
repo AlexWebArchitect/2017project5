@@ -1,0 +1,17 @@
+[
+    {
+        "id":   "1",
+        "title":    "Продаю Cavalcade",
+        "user_id":  "1",
+        "content":  "4-door SUV\r\n5000$",
+        "date": "2017-04-29 11:27:07",
+        "subcategory_id":   "1"
+    },{
+        "id":   "2",
+        "title":    "Куплю Sultan RS",
+        "user_id":  "1",
+        "content":  "phone: \r\n555-0100",
+        "date": "2017-04-29 11:27:07",
+        "subcategory_id":   "1"
+    }
+]
