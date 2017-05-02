@@ -3,9 +3,10 @@
 ### client app
 
 ## ToDo:
+    » Drawer
+    » Modal Dialog
 
-
-## to build app "dist/bundle.js"
+## To build app 
 
 ```bash
 $ node -v
