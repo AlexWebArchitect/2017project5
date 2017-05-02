@@ -1,1 +1,2 @@
 export const LOAD_LAST_POSTS = 'LOAD_LAST_POSTS'
+export const SHOW_NEW_POST_MODAL = 'SHOW_NEW_POST_MODAL'
