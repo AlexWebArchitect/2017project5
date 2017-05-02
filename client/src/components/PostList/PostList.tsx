@@ -17,7 +17,6 @@ export default class PostList extends React.Component<Props, State>{
                 <PostItem post={post}/>
             </li>
         ))
-        console.log(this.props.posts.length)
         return <ul className={styles.item}>{posts}</ul>
     }
 }
