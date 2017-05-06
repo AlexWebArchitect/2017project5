@@ -55,11 +55,9 @@
     }
     if ('POST' === $method) {
         $title = $_POST['title'];
-        $user_id = $_POST['user_id'];
-        $user_id = intval($user_id);
+        $user_id = intval($_POST['user_id']);
         $content = $_POST['content'];
-        $subcategory_id = $_POST['subcategory_id'];
-        $subcategory_id = intval($subcategory_id);
+        $subcategory_id = intval($_POST['subcategory_id']);
         $insertion = "INSERT INTO notice (title, user_id, content, subcategory_id) VALUES ('$title', '$user_id', '$content', '$subcategory_id')";
         if (mysqli_query($mysqli, $insertion)) {
             echo "New record created successfully";
