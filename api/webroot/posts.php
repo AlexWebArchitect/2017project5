@@ -69,6 +69,14 @@
     }
     if ('PUT' === $method) {
         parse_str(file_get_contents('php://input'), $_PUT);
-        var_dump($_PUT);
+        $id = intval($_PUT['id']);
+        $title = $_PUT['title'];
+        $content = $_PUT['content'];
+        $edition = "UPDATE notice SET title='$title', content='$content' WHERE id='$id'";
+        if (mysqli_query($mysqli, $edition)) {
+            echo "record edited successfully";
+        } else {
+            echo "Error: " . $edition . "<br>" . mysqli_error($mysqli);
+        }
     }
 ?>

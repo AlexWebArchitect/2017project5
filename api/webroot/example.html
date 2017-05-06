@@ -96,6 +96,28 @@
                 });
             }
             */
+            function editPOST() {
+                var $post_id = $('#post_idEd');
+                var $postToEd = $post_id.val();
+                var $title_id = $('#titleEd');
+                var $title = $title_id.val();
+                var $content_id = $('#contentEd');
+                var $content = $content_id.val();
+                var http = new XMLHttpRequest();
+                var url = "http://localhost:8000/posts";
+                var params = "id="+$postToEd+"&title="+$title+"&content="+$content;
+                http.open("PUT", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        document.getElementById("posts").innerHTML=this.responseText;
+                    }
+                }
+                http.send(params);
+            }
         </script>
     </head>
     <body>
@@ -106,5 +128,10 @@
         <p>Delete post</p>
         <p>post_id: <input type="text" id="post_id"></p>
         <button id="delete" onclick="deletePOST()">delete</button>
+        <p>Edit post</p>
+        <p>post_id: <input type="text" id="post_idEd"></p>
+        <p>title: <input type="text" id="titleEd"></p>
+        <p>content: <input type="text" id="contentEd"></p>
+        <button id="edit" onclick="editPOST()">eDit</button>
     </body>
 </html>
