@@ -41,4 +41,20 @@
         $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
         echo $shipment;
     }
+
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ('DELETE' === $method) {
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        $postToDel = intval($_DELETE['id']);
+        $deletion = "DELETE FROM `notice` WHERE id='$postToDel'";
+        if (mysqli_query($mysqli, $deletion)) {
+            echo "record deleted successfully";
+        } else {
+            echo "Error: " . $deletion . "<br>" . mysqli_error($mysqli);
+        }
+    }
+    if ('PUT' === $method) {
+        parse_str(file_get_contents('php://input'), $_PUT);
+        var_dump($_PUT);
+    }
 ?>

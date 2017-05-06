@@ -46,9 +46,9 @@
                 var $post_id = $('#post_id');
                 var $postToDel = $post_id.val();
                 var http = new XMLHttpRequest();
-                var url = "http://localhost:8000/index.php";
-                var params = "post_id="+$postToDel;
-                http.open("POST", url, true);
+                var url = "http://localhost:8000/posts";
+                var params = "id="+$postToDel;
+                http.open("DELETE", url, true);
 
                 //Send the proper header information along with the request
                 http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -81,7 +81,21 @@
                 xmlhttp.open("GET","http://localhost:8000/posts?last="+str,true);
                 xmlhttp.send();
             }
-            getlast("2");
+            getlast();
+/*
+            function deletePOST() {
+                var $post_id = $('#post_id');
+                var $postToDel = $post_id.val();
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8000/posts",
+                    data: "id="+$postToDel,
+                    success: function(msg){
+                        //alert("Data Deleted: " + msg);
+                    }
+                });
+            }
+            */
         </script>
     </head>
     <body>
