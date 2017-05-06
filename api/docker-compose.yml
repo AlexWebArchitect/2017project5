@@ -15,8 +15,12 @@ phpmyadmin:
       - db
 db:
   image: "mysql:5"
+  container_name: database.dev
+  command: mysqld --user=root --verbose
   volumes:
     - ./mysql:/etc/mysql/conf.d
+    - ./noticeboard.sql:/tmp/noticeboard.sql
+    - ./import.sh:/tmp/import.sh
   environment:
     MYSQL_ROOT_PASSWORD: phpapptest
     MYSQL_DATABASE: noticeboard

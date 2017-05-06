@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 06, 2017 at 08:44 AM
--- Server version: 5.7.18-0ubuntu0.16.04.1
--- PHP Version: 7.0.15-0ubuntu0.16.04.4
+-- Host: db
+-- Generation Time: May 06, 2017 at 12:59 PM
+-- Server version: 5.7.18
+-- PHP Version: 7.0.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `noticeboard`
 --
+CREATE DATABASE IF NOT EXISTS `noticeboard` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `noticeboard`;
 
 -- --------------------------------------------------------
 
@@ -101,8 +105,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `type`, `login`, `password`, `email`) VALUES
-(1, 0, 'NicoBellic2468XX', '1234', 'faggBRO360xxzzZ@gmail.com'),
-(2, 0, 'fjdfk', '3e19e0ecd673880787f5014dc8c868cc', 'ajsjdsj');
+(1, 0, 'NicoBellic2468XX', '1234', 'faggBRO360xxzzZ@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -118,13 +121,16 @@ ALTER TABLE `category`
 -- Indexes for table `notice`
 --
 ALTER TABLE `notice`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `subcategory_id` (`subcategory_id`);
 
 --
 -- Indexes for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idCategory` (`idCategory`);
 
 --
 -- Indexes for table `user`
@@ -145,7 +151,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `subcategory`
 --
@@ -156,6 +162,24 @@ ALTER TABLE `subcategory`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `notice`
+--
+ALTER TABLE `notice`
+  ADD CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`);
+
+--
+-- Constraints for table `subcategory`
+--
+ALTER TABLE `subcategory`
+  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`idCategory`) REFERENCES `category` (`id`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
