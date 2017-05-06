@@ -1,8 +1,6 @@
 # 2017project5
 Доска объявлений с категориями
 
-(this part is under construction)
-
 **Типа документация:**
 
 Как пользоваться apiшкой?
@@ -17,12 +15,7 @@
 ![Imgur](http://i.imgur.com/srThnYG.png)
 
 5) Ждем ещё 100 лет
-6) Заходим на http://localhost:8080/
-
-![Imgur](http://i.imgur.com/Da0b7ZE.png)
-
-Username: root
-
-Password: phpapptest
-
-7) Жмакай Go
+6) набираем 
+```
+docker exec database.dev bash /tmp/import.sh
+```
