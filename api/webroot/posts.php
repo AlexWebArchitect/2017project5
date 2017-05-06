@@ -7,18 +7,38 @@
     	printf("Ошибка при загрузке набора символов utf8: %s\n", $mysqli->error);
     	exit();
 	}
-    
-    $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
-    if ($query) {
-        $records = [];
-        while ($record = mysqli_fetch_assoc($query)) {
-            if ($record['date']) {
-                $time = strtotime($record['date']);
-                $record['date'] = "$time";
+
+    $last = intval($_GET['last']);
+
+    if (!$last) {
+        $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
+        if ($query) {
+            $records = [];
+            while ($record = mysqli_fetch_assoc($query)) {
+                if ($record['date']) {
+                    $time = strtotime($record['date']);
+                    $record['date'] = "$time";
+                }
+                $records[] = $record;
             }
-            $records[] = $record;
         }
+        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+        echo $shipment;
     }
-    $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-    echo $shipment;
+
+    if ($last) {
+        $query = mysqli_query($mysqli, "SELECT * FROM notice ORDER BY id DESC LIMIT 0, $last");
+        if ($query) {
+            $records = [];
+            while ($record = mysqli_fetch_assoc($query)) {
+                if ($record['date']) {
+                    $time = strtotime($record['date']);
+                    $record['date'] = "$time";
+                }
+                $records[] = $record;
+            }
+        }
+        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+        echo $shipment;
+    }
 ?>
