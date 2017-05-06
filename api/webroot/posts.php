@@ -53,6 +53,20 @@
             echo "Error: " . $deletion . "<br>" . mysqli_error($mysqli);
         }
     }
+    if ('POST' === $method) {
+        $title = $_POST['title'];
+        $user_id = $_POST['user_id'];
+        $user_id = intval($user_id);
+        $content = $_POST['content'];
+        $subcategory_id = $_POST['subcategory_id'];
+        $subcategory_id = intval($subcategory_id);
+        $insertion = "INSERT INTO notice (title, user_id, content, subcategory_id) VALUES ('$title', '$user_id', '$content', '$subcategory_id')";
+        if (mysqli_query($mysqli, $insertion)) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $insertion . "<br>" . mysqli_error($mysqli);
+        }
+    }
     if ('PUT' === $method) {
         parse_str(file_get_contents('php://input'), $_PUT);
         var_dump($_PUT);

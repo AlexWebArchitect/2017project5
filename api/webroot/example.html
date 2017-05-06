@@ -28,7 +28,7 @@
                 var $content_id = $('#content');
                 var $content = $content_id.val();
                 var http = new XMLHttpRequest();
-                var url = "http://localhost:8000/index.php";
+                var url = "http://localhost:8000/posts";
                 var params = "title="+$title+"&user_id=1&content="+$content+"&subcategory_id=1";
                 http.open("POST", url, true);
 
