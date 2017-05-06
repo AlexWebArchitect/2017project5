@@ -1,5 +1,4 @@
-# 2017project5
-Доска объявлений с категориями
+# Доска объявлений с категориями
 
 **Типа документация:**
 
@@ -19,3 +18,14 @@
 ```
 docker exec database.dev bash /tmp/import.sh
 ```
+7) Profit?
+
+http://localhost:8000/posts - JSON всех постов
+
+http://localhost:8000/users - JSON всех пользователей
+
+http://localhost:8000/categories - JSON всех категорий
+
+http://localhost:8000/subcategories - JSON всех подкатегорий
+
+http://localhost:8000/posts?last=2 - JSON 2 последних постов
