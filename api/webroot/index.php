@@ -10,8 +10,6 @@
 
     $table = $_GET['get'];
     if ($table != "") {
-        if ($table == "notice")
-            $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
         switch ($table) {
             case "notice":
                 $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
