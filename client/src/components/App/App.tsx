@@ -22,7 +22,6 @@ export default class App extends React.Component<Props, State> {
    componentDidMount(){
         itworx.subscribe(Actions.LOAD_LAST_POSTS, this.loadLastPosts)
         itworx.dispatch({type: Actions.LOAD_LAST_POSTS})
-        
     }
 
     loadLastPosts(action: Action){
