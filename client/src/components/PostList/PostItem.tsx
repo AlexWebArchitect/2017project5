@@ -51,7 +51,7 @@ export default class PostItem extends React.Component<Props, State> {
             <div className={containerStyle}>
                 <h4>{post.title}</h4>
                 <p>{post.content}</p>
-                <h6>{new Date(Number(post.date+'0')).toLocaleDateString('Ru')}</h6>
+                <h6>{new Date(post.date).toLocaleDateString('Ru')}</h6>
                 {buttonGroup}
             </div>
         )

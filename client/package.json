@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
-    "build": "rimraf dist && webpack -p --progress --colors && cpx ./src/posts ./dist && node ./src/server",
+    "build": "rimraf dist && webpack -p --progress --colors && cpx ./src/posts ./dist",
     "copy": "cpx ./src/posts ./dist && cpx ./dist/bundle.js ../api/webroot && cpx ./dist/styles.css ../api/webroot && cpx ./dist/worker.js ../api/webroot",
+    "docker": "npm run build && npm run copy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
