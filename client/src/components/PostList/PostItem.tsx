@@ -6,11 +6,13 @@ import {EDIT_POST_ITEM, DELETE_POST_ITEM} from '../../constants/actions'
 
 interface Props {
     post: PostListItem
+    userID: string
 }
 interface State {
     // empty 
 }
 export default class PostItem extends React.Component<Props, State> {
+
 
     constructor(props:Props) {
         super(props)
@@ -30,9 +32,8 @@ export default class PostItem extends React.Component<Props, State> {
     }
 
     render() {
-        const {post} = this.props
-
-        const buttonGroup = (
+        const {post, userID} = this.props
+        const buttonGroup = (post.user_id != userID) ? null : (
             <div className={styles['button-group']}>
                 <button className="btn btn-default btn-sm"
                         onClick={this.editPostItem}>

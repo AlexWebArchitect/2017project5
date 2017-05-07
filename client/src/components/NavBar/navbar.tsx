@@ -13,7 +13,11 @@ export default class NavBar extends React.Component <Props, State> {
     }
 
     newPost() {
-        itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
+        const id = window.localStorage.getItem('user')
+        if(!!id)
+            itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
+        else 
+            itworx.dispatch({type: Actions.SHOW_REGISTRATION_MODAL, payload: true})
     }
 
     render(){

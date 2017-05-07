@@ -19,15 +19,23 @@ export default class RegistrationModal extends React.Component<Props, State> {
     constructor(props: Props){
         super(props)
 
-        this.state = { visible: true }
+        this.state = { visible: false}
 
         this.closeModal = this.closeModal.bind(this)
         this.showModal = this.showModal.bind(this)
         this.submitForm = this.submitForm.bind(this)
+        this.registerNewUser = this.registerNewUser.bind(this)
     }
 
     componentDidMount(){
-        // itworx.subscribe(Actions.SHOW_NEW_POST_MODAL, this.showModal)
+        itworx.subscribe(Actions.SHOW_REGISTRATION_MODAL, this.showModal)
+        itworx.subscribe(Actions.REGISTER_NEW_USER, this.registerNewUser)
+    }
+
+    registerNewUser(action: Action){
+        window.localStorage.setItem('user', action.payload)
+        this.closeModal()
+        itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
     }
 
     showModal(action: Action){
@@ -40,9 +48,6 @@ export default class RegistrationModal extends React.Component<Props, State> {
     submitForm(){
         const payload = {login: this.login.value, password: this.password.value}
         itworx.dispatch({type: Actions.REGISTER_NEW_USER, payload })
-        // const payload = {title: this.title.value, content: this.content.value}
-        // itworx.dispatch({type: Actions.ADD_NEW_POST, payload })
-        // this.closeModal()
     }
 
     render(){

@@ -19,7 +19,7 @@ interface Post{
     user_id?: string
 }
 export function addPosts(post:Post): Promise<PostListItem[]>{
-    const data = qs.stringify({...post, user_id: "1", subcategory_id: "1"})
+    const data = qs.stringify({...post, subcategory_id: "1"})
     const options = {
         url: '/posts',
         method: 'POST',
@@ -47,7 +47,6 @@ export function deletePosts(id:string): Promise<PostListItem[]>{
     }
     return axios(options)
         .then(response => {
-            console.log(response)
             if(response.data.error) throw new Error(response.data.error)
             return response.data
         })
@@ -79,7 +78,7 @@ interface Auth {
 export function registerNewUser(auth:Auth): Promise<PostListItem[]>{
    
     const options = {
-        url: '/posts',
+        url: '/users',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
