@@ -39,10 +39,19 @@
         $password = $_POST['password'];
         if ($result=mysqli_query($mysqli, "SELECT * FROM user WHERE login='$login'")) {
             if (mysqli_num_rows($result) > 0) {
-                $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli) . "(user already exists)";
-                $log = array("Error"=>$errormsg);
-                $error = json_encode($log, JSON_UNESCAPED_UNICODE);
-                echo $error;
+                if ($password === mysqli_fetch_assoc($result)['password']) {
+                    $records = [];
+                    while ($record = mysqli_fetch_assoc($query)) {
+                        $records[] = $record;
+                    }       
+                    $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+                    echo $shipment;
+                } else {
+                    $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli) . " (password is incorrect)";
+                    $log = array("Error"=>$errormsg);
+                    $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+                    echo $error;
+                }
             } else {
                 $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
                 if (mysqli_query($mysqli, $insertion)) {
