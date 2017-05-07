@@ -42,7 +42,10 @@ function onMessage(event) {
             break
         case Actions.ADD_NEW_POST:
             api.addPosts(payload)
-            .then(console.log)
+                .then(post => {
+                    state.posts = [...post,...state.posts]
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                })
             break
 // display
         case Actions.SHOW_NEW_POST_MODAL:

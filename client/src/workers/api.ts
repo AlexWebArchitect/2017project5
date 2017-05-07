@@ -1,4 +1,5 @@
 import axios from 'axios'
+const qs = require('qs')
 
 export function loadLastPosts(): Promise<PostListItem[]>{
     const options = {
@@ -16,14 +17,19 @@ interface Post{
     subcategory_id?: string
     user_id?: string
 }
-export function addPosts(post:Post): Promise<PostListItem>{
+export function addPosts(post:Post): Promise<PostListItem[]>{
+    const data = qs.stringify({...post, user_id: "1", subcategory_id: "1"})
     const options = {
         url: '/posts',
         method: 'POST',
-        data: {...post, user_id:"1", subcategory_id:"1"}
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }, data
     }
-
     return axios(options)
-    .then(response => response.data)
+    .then(response => {
+        if(response.data.error) throw new Error(response.data.error)
+        return response.data
+    })
     .catch(console.error)
 }

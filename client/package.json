@@ -26,6 +26,8 @@
   "homepage": "https://github.com/AlexWebArchitect/2017project5#readme",
   "devDependencies": {
     "@reactivex/rxjs": "^5.2.0",
+    "@types/node": "^7.0.18",
+    "@types/qs": "^6.2.31",
     "@types/react": "^15.0.14",
     "@types/react-bootstrap": "0.0.47",
     "@types/react-dom": "^0.14.23",
@@ -55,6 +57,8 @@
   },
   "dependencies": {
     "axios": "^0.16.1",
+    "node": "0.0.0",
+    "qs": "^6.4.0",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2"
