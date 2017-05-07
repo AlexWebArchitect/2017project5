@@ -5,15 +5,13 @@ import * as api from './api'
 interface State {
 // data
     posts: Array<PostListItem>
-// display
-    newPostModalIsVisible: boolean
-    editPostModalIsVisible: boolean
+    user_id: string
+
 }
 
 const state: State = {
     posts: [],
-    newPostModalIsVisible: false,
-    editPostModalIsVisible: true
+    user_id: ''
 }
 
 function onMessage(event) {
@@ -50,8 +48,13 @@ function onMessage(event) {
             api.registerNewUser(payload)
                 .then(response => {
                     const user = response[0]
-                    console.log(user)
+                    state.user_id = user.id
+                    self.postMessage.apply(null,[{type: Actions.REGISTER_NEW_USER, payload: user.id}])
+                }).catch(error => {
+                    console.log('registration error send error to registration dialog')
+                    console.error(error)
                 })
+            break
         case Actions.SEARCH_POST_ITEM: 
             self.postMessage.apply(null, [{
                 type: Actions.LOAD_LAST_POSTS, 
@@ -69,7 +72,9 @@ function onMessage(event) {
             break
 // display
         case Actions.SHOW_NEW_POST_MODAL:
-            state.newPostModalIsVisible = payload
+            self.postMessage.apply(null, [event.data])
+            break
+        case Actions.SHOW_REGISTRATION_MODAL:
             self.postMessage.apply(null, [event.data])
             break
     }
