@@ -37,25 +37,34 @@
     if ('POST' === $method) {
         $login = $_POST['login'];
         $password = $_POST['password'];
-        $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
-        if (mysqli_query($mysqli, $insertion)) {
-            $last_id = mysqli_insert_id($mysqli);
-            if ($last_id) {
-                $query = mysqli_query($mysqli, "SELECT * FROM `user` WHERE id=$last_id");
-                if ($query) {
-                    $records = [];
-                    while ($record = mysqli_fetch_assoc($query)) {
-                        $records[] = $record;
+        if ($result=mysqli_query($mysqli, "SELECT * FROM user WHERE login='$login'")) {
+            if (mysqli_num_rows($result) > 0) {
+                $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli) . "(user already exists)";
+                $log = array("Error"=>$errormsg);
+                $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+                echo $error;
+            } else {
+                $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
+                if (mysqli_query($mysqli, $insertion)) {
+                    $last_id = mysqli_insert_id($mysqli);
+                    if ($last_id) {
+                        $query = mysqli_query($mysqli, "SELECT * FROM `user` WHERE id=$last_id");
+                        if ($query) {
+                            $records = [];
+                            while ($record = mysqli_fetch_assoc($query)) {
+                                $records[] = $record;
+                            }
+                        }
+                        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+                        echo $shipment;
                     }
+                } else {
+                    $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
+                    $log = array("Error"=>$errormsg);
+                    $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+                    echo $error;
                 }
-                $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-                echo $shipment;
             }
-        } else {
-            $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
-            $log = array("Error"=>$errormsg);
-            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
-            echo $error;
         }
     }
 ?>
