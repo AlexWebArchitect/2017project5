@@ -35,11 +35,9 @@
         }
     }
     if ('POST' === $method) {
-        $type = intval($_POST['type']);
         $login = $_POST['login'];
         $password = $_POST['password'];
-        $email = $_POST['email'];
-        $insertion = "INSERT INTO user (type, login, password, email) VALUES ('$type', '$login', '$password', '$email')";
+        $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
         if (mysqli_query($mysqli, $insertion)) {
             $last_id = mysqli_insert_id($mysqli);
             if ($last_id) {
@@ -55,31 +53,6 @@
             }
         } else {
             $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
-            $log = array("Error"=>$errormsg);
-            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
-            echo $error;
-        }
-    }
-    if ('PUT' === $method) {
-        parse_str(file_get_contents('php://input'), $_PUT);
-        $id = intval($_PUT['id']);
-        $type = intval($_PUT['type']);
-        $login = $_PUT['login'];
-        $password = $_PUT['password'];
-        $email = $_PUT['email'];
-        $edition = "UPDATE user SET type='$type', login='$login', password='$password', email='$email' WHERE id='$id'";
-        if (mysqli_query($mysqli, $edition)) {
-            $query = mysqli_query($mysqli, "SELECT * FROM `user` WHERE id=$id");
-            if ($query) {
-                $records = [];
-                while ($record = mysqli_fetch_assoc($query)) {
-                    $records[] = $record;
-                }
-            }
-            $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-            echo $shipment;
-        } else {
-            $errormsg = " " . $edition . "<br>" . mysqli_error($mysqli);
             $log = array("Error"=>$errormsg);
             $error = json_encode($log, JSON_UNESCAPED_UNICODE);
             echo $error;

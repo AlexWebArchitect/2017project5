@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 06, 2017 at 12:59 PM
+-- Generation Time: May 07, 2017 at 11:18 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -76,14 +76,14 @@ INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `subcategory_
 CREATE TABLE `subcategory` (
   `id` int(11) NOT NULL,
   `type` tinytext NOT NULL,
-  `idCategory` int(11) NOT NULL
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subcategory`
 --
 
-INSERT INTO `subcategory` (`id`, `type`, `idCategory`) VALUES
+INSERT INTO `subcategory` (`id`, `type`, `category_id`) VALUES
 (1, 'Авто', 1);
 
 -- --------------------------------------------------------
@@ -94,18 +94,16 @@ INSERT INTO `subcategory` (`id`, `type`, `idCategory`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `login` tinytext NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `email` tinytext NOT NULL
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `type`, `login`, `password`, `email`) VALUES
-(1, 0, 'NicoBellic2468XX', '1234', 'faggBRO360xxzzZ@gmail.com');
+INSERT INTO `user` (`id`, `login`, `password`) VALUES
+(1, 'NicoBellic2468XX', '1234');
 
 --
 -- Indexes for dumped tables
@@ -130,7 +128,7 @@ ALTER TABLE `notice`
 --
 ALTER TABLE `subcategory`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idCategory` (`idCategory`);
+  ADD KEY `idCategory` (`category_id`);
 
 --
 -- Indexes for table `user`
@@ -177,7 +175,7 @@ ALTER TABLE `notice`
 -- Constraints for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`idCategory`) REFERENCES `category` (`id`);
+  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
