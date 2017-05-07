@@ -10,7 +10,7 @@
     
     $method = $_SERVER['REQUEST_METHOD'];
     if ('GET' === $method) {
-        $query = mysqli_query($mysqli, "SELECT * FROM `subcategory`");
+        $query = mysqli_query($mysqli, "SELECT * FROM `subcategory` ORDER BY id DESC");
         if ($query) {
             $records = [];
             while ($record = mysqli_fetch_assoc($query)) {
