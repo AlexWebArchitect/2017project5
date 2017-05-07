@@ -7,11 +7,13 @@ interface State {
     posts: Array<PostListItem>
 // display
     newPostModalIsVisible: boolean
+    editPostModalIsVisible: boolean
 }
 
 const state: State = {
     posts: [],
-    newPostModalIsVisible: true
+    newPostModalIsVisible: false,
+    editPostModalIsVisible: true
 }
 
 function onMessage(event) {
@@ -33,6 +35,14 @@ function onMessage(event) {
                 })
             break
         case Actions.EDIT_POST_ITEM: 
+            self.postMessage.apply(null, [event.data])
+            break
+        case Actions.UPDATE_POST_ITEM:
+            api.updatePosts(payload)
+                .then(response => {
+                    
+                })
+
             break
         case Actions.SEARCH_POST_ITEM: 
             self.postMessage.apply(null, [{
@@ -54,7 +64,6 @@ function onMessage(event) {
             state.newPostModalIsVisible = payload
             self.postMessage.apply(null, [event.data])
             break
-        default :
     }
 }
 
