@@ -28,7 +28,10 @@
         if (mysqli_query($mysqli, $deletion)) {
             //echo "record deleted successfully";
         } else {
-            echo "Error: " . $deletion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $deletion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('POST' === $method) {
@@ -51,7 +54,10 @@
                 echo $shipment;
             }
         } else {
-            echo "Error: " . $insertion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('PUT' === $method) {
@@ -73,7 +79,10 @@
             $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
             echo $shipment;
         } else {
-            echo "Error: " . $edition . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $edition . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
 ?>
