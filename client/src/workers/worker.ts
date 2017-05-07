@@ -46,6 +46,12 @@ function onMessage(event) {
                     self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
                 })
             break
+        case Actions.REGISTER_NEW_USER:
+            api.registerNewUser(payload)
+                .then(response => {
+                    const user = response[0]
+                    console.log(user)
+                })
         case Actions.SEARCH_POST_ITEM: 
             self.postMessage.apply(null, [{
                 type: Actions.LOAD_LAST_POSTS, 

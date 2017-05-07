@@ -12,3 +12,10 @@ declare interface Action {
     type: string
     payload?: any
 }
+
+declare interface User {
+    id: string
+    login: string
+    password: string
+    error?: string
+}

@@ -2,7 +2,6 @@ import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 import * as styles from './registrationmodal.css'
-const uuid = require('uuid')
 
 
 interface Props {
@@ -25,8 +24,6 @@ export default class RegistrationModal extends React.Component<Props, State> {
         this.closeModal = this.closeModal.bind(this)
         this.showModal = this.showModal.bind(this)
         this.submitForm = this.submitForm.bind(this)
-
-        console.log(uuid().length)
     }
 
     componentDidMount(){
@@ -41,9 +38,11 @@ export default class RegistrationModal extends React.Component<Props, State> {
     }
 
     submitForm(){
+        const payload = {login: this.login.value, password: this.password.value}
+        itworx.dispatch({type: Actions.REGISTER_NEW_USER, payload })
         // const payload = {title: this.title.value, content: this.content.value}
         // itworx.dispatch({type: Actions.ADD_NEW_POST, payload })
-        this.closeModal()
+        // this.closeModal()
     }
 
     render(){
