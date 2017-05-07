@@ -26,9 +26,11 @@ function onMessage(event) {
             })
             break
         case Actions.DELETE_POST_ITEM:
-            state.posts = state.posts.filter(item => item.id != payload)
-            // api.delete
-            self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+            api.deletePosts(payload)
+                .then(response => {
+                    state.posts = state.posts.filter(item => item.id != payload)
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                })
             break
         case Actions.EDIT_POST_ITEM: 
             break

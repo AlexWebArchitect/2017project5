@@ -33,3 +33,21 @@ export function addPosts(post:Post): Promise<PostListItem[]>{
     })
     .catch(console.error)
 }
+
+export function deletePosts(id:string): Promise<PostListItem[]>{
+   
+    const options = {
+        url: '/posts',
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }, 
+        data: {id}
+    }
+    return axios(options)
+    .then(response => {
+        if(response.data.error) throw new Error(response.data.error)
+        return response.data
+    })
+    .catch(console.error)
+}
