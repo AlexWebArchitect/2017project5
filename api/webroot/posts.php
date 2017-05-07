@@ -57,8 +57,8 @@
         $insertion = "INSERT INTO notice (title, user_id, content, category_id) VALUES ('$title', '$user_id', '$content', '$category_id')";
         if (mysqli_query($mysqli, $insertion)) {
             $last_id = mysqli_insert_id($mysqli);
-            if ($last_id) {
-                $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id=$last_id");
+            if ($last_id) { 
+                $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id WHERE notice.id=$last_id");
                 if ($query) {
                     $records = [];
                     while ($record = mysqli_fetch_assoc($query)) {
@@ -82,7 +82,7 @@
         $content = $_PUT['content'];
         $edition = "UPDATE notice SET title='$title', content='$content' WHERE id='$id'";
         if (mysqli_query($mysqli, $edition)) {
-             $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id='$id'");
+             $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id WHERE notice.id='$id'");
                 if ($query) {
                     $records = [];
                     while ($record = mysqli_fetch_assoc($query)) {
