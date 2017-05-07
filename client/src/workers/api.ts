@@ -14,6 +14,7 @@ export function loadLastPosts(): Promise<PostListItem[]>{
 interface Post{
     title: string
     content: string
+    id?: string
     subcategory_id?: string
     user_id?: string
 }
@@ -43,6 +44,25 @@ export function deletePosts(id:string): Promise<PostListItem[]>{
             'Content-Type': 'application/x-www-form-urlencoded'
         }, 
         data: qs.stringify({id})
+    }
+    return axios(options)
+        .then(response => {
+            console.log(response)
+            if(response.data.error) throw new Error(response.data.error)
+            return response.data
+        })
+        .catch(console.error)
+}
+
+export function updatePosts(post: Post): Promise<PostListItem[]>{
+   
+    const options = {
+        url: '/posts',
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }, 
+        data: qs.stringify(post)
     }
     return axios(options)
         .then(response => {
