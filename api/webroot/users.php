@@ -12,10 +12,6 @@
     if ($query) {
         $records = [];
         while ($record = mysqli_fetch_assoc($query)) {
-            if ($record['date']) {
-                $time = strtotime($record['date']);
-                $record['date'] = "$time";
-            }
             $records[] = $record;
         }
     }
