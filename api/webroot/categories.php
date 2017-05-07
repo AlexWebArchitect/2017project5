@@ -8,13 +8,16 @@
     	exit();
 	}
     
-    $query = mysqli_query($mysqli, "SELECT * FROM `category`");
-    if ($query) {
-        $records = [];
-        while ($record = mysqli_fetch_assoc($query)) {
-            $records[] = $record;
+    $method = $_SERVER['REQUEST_METHOD'];
+        if ('GET' === $method) {
+        $query = mysqli_query($mysqli, "SELECT * FROM `category`");
+        if ($query) {
+            $records = [];
+            while ($record = mysqli_fetch_assoc($query)) {
+                $records[] = $record;
+            }
         }
+        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+        echo $shipment;
     }
-    $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-    echo $shipment;
 ?>
