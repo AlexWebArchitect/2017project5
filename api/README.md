@@ -17,5 +17,3 @@ method="PUT", url="http://host/posts", params="id=60&title=Новое назва
 method="POST", url="http://host/users", params="type=0&login=Логин&password=12345678&email=supermail@gmail.com" - добавить нового пользователя
           
 method="DELETE", url="http://host/users", params="id=55" - удалить пользователя 55
-
-method="PUT", url="http://host/users", params="id=5&login=Новый логин&password=новый пароль&email=новый email" - редактирование пользователей
