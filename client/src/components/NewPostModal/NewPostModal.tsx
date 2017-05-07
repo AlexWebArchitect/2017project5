@@ -34,10 +34,10 @@ export default class NewPostModal extends React.Component<Props, State> {
     render(){
         if(!this.state.visible) return null
         return (
-        <div className={styles.conainer}>
-            <div className={"modal-dialog "+ styles.dialog} role="document">
-                <div className={styles.overlay}
-                    onClick={this.closeModal} />
+        <div className={styles.overlay} onClick={this.closeModal}>
+            <div className={"modal-dialog"} 
+                role="document" 
+                onClick={e=>e.stopPropagation()}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <button type="button" 
