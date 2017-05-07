@@ -35,11 +35,9 @@
         }
     }
     if ('POST' === $method) {
-        $type = intval($_POST['type']);
         $login = $_POST['login'];
         $password = $_POST['password'];
-        $email = $_POST['email'];
-        $insertion = "INSERT INTO user (type, login, password, email) VALUES ('$type', '$login', '$password', '$email')";
+        $insertion = "INSERT INTO user (login, password) VALUES ($login', '$password')";
         if (mysqli_query($mysqli, $insertion)) {
             $last_id = mysqli_insert_id($mysqli);
             if ($last_id) {

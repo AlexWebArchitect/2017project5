@@ -27,11 +27,9 @@
                 var $login = $login_id.val();
                 var $password_id = $('#password');
                 var $password = $password_id.val();
-                var $email_id = $('#email');
-                var $email = $email_id.val();
                 var http = new XMLHttpRequest();
                 var url = "http://localhost:8000/users";
-                var params = "type=0&login="+$login+"&password="+$password+"&email="+$email;
+                var params = "login="+$login+"&password="+$password;
                 http.open("POST", url, true);
 
                 //Send the proper header information along with the request
@@ -69,16 +67,9 @@
         <ul id="users"></ul>
         <p>login: <input type="text" id="login"></p>
         <p>password: <input type="text" id="password"></p>
-        <p>email: <input type="text" id="email"></p>
         <button id="ship" onclick="shipUser()">shipit</button>
         <p>Delete user</p>
         <p>user_id: <input type="text" id="user_id"></p>
         <button id="delete" onclick="deleteUser()">delete</button>
-        <p>Edit user</p>
-        <p>user_id: <input type="text" id="user_idEd"></p>
-        <p>login: <input type="text" id="loginEd"></p>
-        <p>password: <input type="text" id="passwordEd"></p>
-        <p>email: <input type="text" id="emailEd"></p>
-        <button id="edit" onclick="editUser()">eDit</button>
     </body>
 </html>
