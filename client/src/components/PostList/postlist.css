@@ -1,0 +1,25 @@
+.item {
+    list-style: none;
+}
+
+
+/*PostItem*/
+
+.container{
+    position: relative;
+}
+
+.button-group{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    & button {
+        margin: 4px 5px 4px 0;
+        visibility: hidden;
+    }
+
+    &:hover button{
+        visibility: visible;
+    }
+}

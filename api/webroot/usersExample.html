@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
+        <script>
+            function getData(str) {
+                if (str=="") {
+                    document.getElementById("users").innerHTML="";
+                    return;
+                }
+                if (window.XMLHttpRequest) {
+                    xmlhttp=new XMLHttpRequest();
+                } else {
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function() {
+                    if (this.readyState==4 && this.status==200) {
+                        document.getElementById("users").innerHTML=this.responseText;
+                    }
+                }
+                xmlhttp.open("GET","http://localhost:8000/users?get="+str,true);
+                xmlhttp.send();
+            }
+            function shipUser() {
+                var $login_id = $('#login');
+                var $login = $login_id.val();
+                var $password_id = $('#password');
+                var $password = $password_id.val();
+                var $email_id = $('#email');
+                var $email = $email_id.val();
+                var http = new XMLHttpRequest();
+                var url = "http://localhost:8000/users";
+                var params = "type=0&login="+$login+"&password="+$password+"&email="+$email;
+                http.open("POST", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        document.getElementById("users").innerHTML=this.responseText;
+                    }
+                }
+                http.send(params);
+            }
+            function deleteUser() {
+                var $user_id = $('#user_id');
+                var $userToDel = $user_id.val();
+                var http = new XMLHttpRequest();
+                var url = "http://localhost:8000/users";
+                var params = "id="+$userToDel;
+                http.open("DELETE", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        document.getElementById("users").innerHTML=this.responseText;
+                    }
+                }
+                http.send(params);
+            }
+            getData();
+            function editUser() {
+                var $user_id = $('#user_idEd');
+                var $userToEd = $user_id.val();
+                var $login_id = $('#loginEd');
+                var $login = $login_id.val();
+                var $password_id = $('#passwordEd');
+                var $password = $password_id.val();
+                var $email_id = $('#emailEd');
+                var $email = $email_id.val();
+                var http = new XMLHttpRequest();
+                var url = "http://localhost:8000/users";
+                var params = "id="+$userToEd+"&login="+$login+"&password="+$password+"&email="+$email;
+                http.open("PUT", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        document.getElementById("users").innerHTML=this.responseText;
+                    }
+                }
+                http.send(params);
+            }
+        </script>
+    </head>
+    <body>
+        <ul id="users"></ul>
+        <p>login: <input type="text" id="login"></p>
+        <p>password: <input type="text" id="password"></p>
+        <p>email: <input type="text" id="email"></p>
+        <button id="ship" onclick="shipUser()">shipit</button>
+        <p>Delete user</p>
+        <p>user_id: <input type="text" id="user_id"></p>
+        <button id="delete" onclick="deleteUser()">delete</button>
+        <p>Edit user</p>
+        <p>user_id: <input type="text" id="user_idEd"></p>
+        <p>login: <input type="text" id="loginEd"></p>
+        <p>password: <input type="text" id="passwordEd"></p>
+        <p>email: <input type="text" id="emailEd"></p>
+        <button id="edit" onclick="editUser()">eDit</button>
+    </body>
+</html>
