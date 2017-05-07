@@ -38,14 +38,15 @@ export function deletePosts(id:string): Promise<PostListItem[]>{
    
     const options = {
         url: '/posts',
-        method: 'delete',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }, 
-        data: {id}
+        data: qs.stringify({id})
     }
     return axios(options)
     .then(response => {
+        console.log(response)
         if(response.data.error) throw new Error(response.data.error)
         return response.data
     })
