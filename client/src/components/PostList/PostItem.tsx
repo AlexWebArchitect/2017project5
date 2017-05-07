@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as styles from './postlist.css'
 import itworx from '../../workers/itworx'
 import {R_U_SURE} from '../../constants/strings'
-import {EDIT_POST_ITEM, DELETE_POST_ITEM} from '../../constants/actions'
+import {EDIT_POST_ITEM, DELETE_POST_ITEM, SORT_BY_USER } from '../../constants/actions'
 
 interface Props {
     post: PostListItem
@@ -19,6 +19,7 @@ export default class PostItem extends React.Component<Props, State> {
 
         this.deletePostItem = this.deletePostItem.bind(this)
         this.editPostItem = this.editPostItem.bind(this)
+        this.sortByUser = this.sortByUser.bind(this)
     }
 
     deletePostItem(){
@@ -29,6 +30,10 @@ export default class PostItem extends React.Component<Props, State> {
 
     editPostItem() {
        itworx.dispatch({type: EDIT_POST_ITEM, payload: this.props.post })
+    }
+
+    sortByUser() {
+        itworx.dispatch({type: SORT_BY_USER, payload: this.props.post.user_id })
     }
 
     render() {
@@ -47,12 +52,17 @@ export default class PostItem extends React.Component<Props, State> {
             </div>
         )
 
+        const date = <span>{new Date(post.date).toLocaleDateString('Ru')}</span>
+        const user = <span className={styles.user}
+            onClick={this.sortByUser}>{post.login}</span>
+
         const containerStyle = [styles.container, 'well'].join(' ') 
         return (
             <div className={containerStyle}>
                 <h4>{post.title}</h4>
                 <p>{post.content}</p>
-                <h6>{new Date(post.date).toLocaleDateString('Ru')}</h6>
+                <br/>
+                <div><small>{date} : {user}</small></div>
                 {buttonGroup}
             </div>
         )

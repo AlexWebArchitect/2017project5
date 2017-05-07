@@ -73,6 +73,12 @@ function onMessage(event) {
         case Actions.SHOW_REGISTRATION_MODAL:
             self.postMessage.apply(null, [event.data])
             break
+        case Actions.SORT_BY_USER:
+            self.postMessage.apply(null, [{
+                type: Actions.LOAD_LAST_POSTS, 
+                payload: state.posts.filter(item => item.user_id == payload)
+            }])
+            break
     }
 }
 

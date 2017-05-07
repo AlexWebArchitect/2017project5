@@ -6,6 +6,7 @@ declare interface PostListItem {
     category_id: string
     title: string
     content: string
+    login: string
 }
 
 declare interface Action {
