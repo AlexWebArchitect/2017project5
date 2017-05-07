@@ -8,8 +8,8 @@ export function loadLastPosts(): Promise<PostListItem[]>{
     }
 
     return axios(options)
-    .then(response => response.data)
-    .catch(console.error)
+        .then(response => response.data)
+        .catch(console.error)
 }
 interface Post{
     title: string
@@ -27,11 +27,11 @@ export function addPosts(post:Post): Promise<PostListItem[]>{
         }, data
     }
     return axios(options)
-    .then(response => {
-        if(response.data.error) throw new Error(response.data.error)
-        return response.data
-    })
-    .catch(console.error)
+        .then(response => {
+            if(response.data.error) throw new Error(response.data.error)
+            return response.data
+        })
+        .catch(console.error)
 }
 
 export function deletePosts(id:string): Promise<PostListItem[]>{
@@ -45,10 +45,10 @@ export function deletePosts(id:string): Promise<PostListItem[]>{
         data: qs.stringify({id})
     }
     return axios(options)
-    .then(response => {
-        console.log(response)
-        if(response.data.error) throw new Error(response.data.error)
-        return response.data
-    })
-    .catch(console.error)
+        .then(response => {
+            console.log(response)
+            if(response.data.error) throw new Error(response.data.error)
+            return response.data
+        })
+        .catch(console.error)
 }
