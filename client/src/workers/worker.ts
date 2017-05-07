@@ -7,11 +7,13 @@ interface State {
     posts: Array<PostListItem>
 // display
     newPostModalIsVisible: boolean
+    editPostModalIsVisible: boolean
 }
 
 const state: State = {
     posts: [],
-    newPostModalIsVisible: true
+    newPostModalIsVisible: false,
+    editPostModalIsVisible: true
 }
 
 function onMessage(event) {
@@ -26,11 +28,23 @@ function onMessage(event) {
             })
             break
         case Actions.DELETE_POST_ITEM:
-            state.posts = state.posts.filter(item => item.id != payload)
-            // api.delete
-            self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+            api.deletePosts(payload)
+                .then(response => {
+                    state.posts = state.posts.filter(item => item.id != payload)
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                })
             break
         case Actions.EDIT_POST_ITEM: 
+            self.postMessage.apply(null, [event.data])
+            break
+        case Actions.UPDATE_POST_ITEM:
+            api.updatePosts(payload)
+                .then(response => {
+                    const post = response[0]
+                    const idx = state.posts.findIndex(item => item.id == post.id)
+                    state.posts[idx] = post
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                })
             break
         case Actions.SEARCH_POST_ITEM: 
             self.postMessage.apply(null, [{
@@ -40,14 +54,18 @@ function onMessage(event) {
                     item.content.toUpperCase().includes(payload.toUpperCase())))
             }])
             break
-            
-
+        case Actions.ADD_NEW_POST:
+            api.addPosts(payload)
+                .then(post => {
+                    state.posts = [...post,...state.posts]
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                })
+            break
 // display
         case Actions.SHOW_NEW_POST_MODAL:
             state.newPostModalIsVisible = payload
             self.postMessage.apply(null, [event.data])
             break
-        default :
     }
 }
 

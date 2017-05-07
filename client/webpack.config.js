@@ -3,9 +3,9 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const outPath = path.join(__dirname, './dist')
 const sourcePath = path.join(__dirname, './src')
 const PRODUCTION = process.argv.indexOf('-p') >= 0
+const outPath = PRODUCTION ? path.join(__dirname, '../api/webroot') : path.join(__dirname, './dist')
 
 module.exports = {
   context: sourcePath,
@@ -87,7 +87,8 @@ module.exports = {
       disable: !PRODUCTION
     }),
     new HtmlWebpackPlugin({
-      template: 'index.html'
+      template: 'index.html',
+      filename: PRODUCTION ? 'template.html' : 'index.html'
     })
   ],
   devServer: {

@@ -1,23 +1,29 @@
 import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
-import * as styles from './new-post-modal.css'
-interface Props {
-    // empty
-}
+import * as styles from './editpostmodal.css'
+
+interface Props {}
 interface State {
     visible: boolean
+    title: string
+    content: string
 }
 
-export default class NewPostModal extends React.Component<Props, State> {
+export default class EditPostModal extends React.Component <Props, State> {
 
     private title: HTMLInputElement
     private content: HTMLTextAreaElement
+    private id: string
 
     constructor(props: Props){
         super(props)
 
-        this.state = { visible: false }
+        this.state = { 
+            visible: false,
+            title: '',
+            content: '' 
+        }
 
         this.closeModal = this.closeModal.bind(this)
         this.showModal = this.showModal.bind(this)
@@ -25,19 +31,21 @@ export default class NewPostModal extends React.Component<Props, State> {
     }
 
     componentDidMount(){
-        itworx.subscribe(Actions.SHOW_NEW_POST_MODAL, this.showModal)
+        itworx.subscribe(Actions.EDIT_POST_ITEM, this.showModal) 
     }
 
     showModal(action: Action){
-        this.setState({visible: action.payload})
+        const { title, content } = action.payload
+        this.id = action.payload.id
+        this.setState({visible: true, title, content})
     }
     closeModal() {
-        itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: false})
+       this.setState({visible: false})
     }
 
     submitForm(){
-        const payload = {title: this.title.value, content: this.content.value}
-        itworx.dispatch({type: Actions.ADD_NEW_POST, payload })
+        const payload = {id: this.id, title: this.title.value, content: this.content.value}
+        itworx.dispatch({type: Actions.UPDATE_POST_ITEM, payload})
         this.closeModal()
     }
 
@@ -57,17 +65,19 @@ export default class NewPostModal extends React.Component<Props, State> {
                             onClick={this.closeModal}>
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 className="modal-title">Add Post</h4>
+                        <h4 className="modal-title">Edit Post</h4>
                     </div>
                     <div className="modal-body">
                          <div className="form-group">
                             <input type="text" 
                                 className="form-control" 
+                                defaultValue={this.state.title}
                                 ref={element=>this.title=element}
                                 placeholder="Title"/>
                         </div>
                         <textarea type="text" 
                             className="form-control" 
+                            defaultValue={this.state.content}
                             ref={element=>this.content=element}
                             placeholder="type ypur post here"/>
                     </div>
@@ -89,5 +99,4 @@ export default class NewPostModal extends React.Component<Props, State> {
         </div>
         )
     }
-
 }

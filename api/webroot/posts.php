@@ -8,41 +8,45 @@
     	exit();
 	}
 
-    $last = intval($_GET['last']);
-
-    if (!$last) {
-        $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
-        if ($query) {
-            $records = [];
-            while ($record = mysqli_fetch_assoc($query)) {
-                $records[] = $record;
-            }
-        }
-        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-        echo $shipment;
-    }
-
-    if ($last) {
-        $query = mysqli_query($mysqli, "SELECT * FROM notice ORDER BY id DESC LIMIT 0, $last");
-        if ($query) {
-            $records = [];
-            while ($record = mysqli_fetch_assoc($query)) {
-                $records[] = $record;
-            }
-        }
-        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-        echo $shipment;
-    }
-
     $method = $_SERVER['REQUEST_METHOD'];
+    if ('GET' === $method) {
+        $last = intval($_GET['last']);
+        if (!$last) {
+            $query = mysqli_query($mysqli, "SELECT * FROM `notice` ORDER BY id DESC");
+            if ($query) {
+                $records = [];
+                while ($record = mysqli_fetch_assoc($query)) {
+                    $records[] = $record;
+                }
+            }
+            $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+            echo $shipment;
+        }
+
+        if ($last) {
+            $query = mysqli_query($mysqli, "SELECT * FROM notice ORDER BY id DESC LIMIT 0, $last");
+            if ($query) {
+                $records = [];
+                while ($record = mysqli_fetch_assoc($query)) {
+                    $records[] = $record;
+                }
+            }
+            $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+            echo $shipment;
+        }
+    }
+
     if ('DELETE' === $method) {
         parse_str(file_get_contents('php://input'), $_DELETE);
         $postToDel = intval($_DELETE['id']);
         $deletion = "DELETE FROM `notice` WHERE id='$postToDel'";
         if (mysqli_query($mysqli, $deletion)) {
-            echo "record deleted successfully";
+            //echo "record deleted successfully";
         } else {
-            echo "Error: " . $deletion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $deletion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('POST' === $method) {
@@ -52,9 +56,23 @@
         $subcategory_id = intval($_POST['subcategory_id']);
         $insertion = "INSERT INTO notice (title, user_id, content, subcategory_id) VALUES ('$title', '$user_id', '$content', '$subcategory_id')";
         if (mysqli_query($mysqli, $insertion)) {
-            echo "New record created successfully";
+            $last_id = mysqli_insert_id($mysqli);
+            if ($last_id) {
+                $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id=$last_id");
+                if ($query) {
+                    $records = [];
+                    while ($record = mysqli_fetch_assoc($query)) {
+                        $records[] = $record;
+                    }
+                }
+                $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+                echo $shipment;
+            }
         } else {
-            echo "Error: " . $insertion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('PUT' === $method) {
@@ -64,9 +82,20 @@
         $content = $_PUT['content'];
         $edition = "UPDATE notice SET title='$title', content='$content' WHERE id='$id'";
         if (mysqli_query($mysqli, $edition)) {
-            echo "record edited successfully";
+             $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id='$id'");
+                if ($query) {
+                    $records = [];
+                    while ($record = mysqli_fetch_assoc($query)) {
+                        $records[] = $record;
+                    }
+                }
+                $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+                echo $shipment;
         } else {
-            echo "Error: " . $edition . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $edition . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
 ?>

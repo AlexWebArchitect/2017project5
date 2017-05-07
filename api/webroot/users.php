@@ -8,25 +8,30 @@
     	exit();
 	}
     
-    $query = mysqli_query($mysqli, "SELECT * FROM `user`");
-    if ($query) {
-        $records = [];
-        while ($record = mysqli_fetch_assoc($query)) {
-            $records[] = $record;
-        }
-    }
-    $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
-    echo $shipment;
-
     $method = $_SERVER['REQUEST_METHOD'];
+    if ('GET' === $method) {
+        $query = mysqli_query($mysqli, "SELECT * FROM `user` ORDER BY id DESC");
+        if ($query) {
+            $records = [];
+            while ($record = mysqli_fetch_assoc($query)) {
+                $records[] = $record;
+            }
+        }
+        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+        echo $shipment;
+    }
+
     if ('DELETE' === $method) {
         parse_str(file_get_contents('php://input'), $_DELETE);
         $userToDel = intval($_DELETE['id']);
         $deletion = "DELETE FROM `user` WHERE id='$userToDel'";
         if (mysqli_query($mysqli, $deletion)) {
-            echo "record deleted successfully";
+            //echo "record deleted successfully";
         } else {
-            echo "Error: " . $deletion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $deletion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('POST' === $method) {
@@ -36,9 +41,23 @@
         $email = $_POST['email'];
         $insertion = "INSERT INTO user (type, login, password, email) VALUES ('$type', '$login', '$password', '$email')";
         if (mysqli_query($mysqli, $insertion)) {
-            echo "New record created successfully";
+            $last_id = mysqli_insert_id($mysqli);
+            if ($last_id) {
+                $query = mysqli_query($mysqli, "SELECT * FROM `user` WHERE id=$last_id");
+                if ($query) {
+                    $records = [];
+                    while ($record = mysqli_fetch_assoc($query)) {
+                        $records[] = $record;
+                    }
+                }
+                $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+                echo $shipment;
+            }
         } else {
-            echo "Error: " . $insertion . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $insertion . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
     if ('PUT' === $method) {
@@ -50,9 +69,20 @@
         $email = $_PUT['email'];
         $edition = "UPDATE user SET type='$type', login='$login', password='$password', email='$email' WHERE id='$id'";
         if (mysqli_query($mysqli, $edition)) {
-            echo "record edited successfully";
+            $query = mysqli_query($mysqli, "SELECT * FROM `user` WHERE id=$id");
+            if ($query) {
+                $records = [];
+                while ($record = mysqli_fetch_assoc($query)) {
+                    $records[] = $record;
+                }
+            }
+            $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+            echo $shipment;
         } else {
-            echo "Error: " . $edition . "<br>" . mysqli_error($mysqli);
+            $errormsg = " " . $edition . "<br>" . mysqli_error($mysqli);
+            $log = array("Error"=>$errormsg);
+            $error = json_encode($log, JSON_UNESCAPED_UNICODE);
+            echo $error;
         }
     }
 ?>
