@@ -5,16 +5,25 @@ import * as api from './api'
 interface State {
 // data
     posts: Array<PostListItem>
+    categories: Array<Category>
 }
 
 const state: State = {
     posts: [],
+    categories: []
 }
 
 function onMessage(event) {
     const {type, payload}: Action = event.data
     switch(type){
-// api        
+// api  
+        case Actions.LOAD_CATEGORIES:
+            api.loadCategories()
+                .then(response => {
+                    state.categories = [...response]
+                    self.postMessage.apply(null, [{type: Actions.LOAD_CATEGORIES, payload: state.categories}])
+                })
+            break      
         case Actions.LOAD_LAST_POSTS:
             api.loadLastPosts()
             .then(payload => {

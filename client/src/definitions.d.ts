@@ -9,6 +9,11 @@ declare interface PostListItem {
     login: string
 }
 
+declare interface Category {
+    id: string
+    name: string
+}
+
 declare interface Action {
     type: string
     payload?: any

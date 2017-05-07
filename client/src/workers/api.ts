@@ -92,3 +92,21 @@ export function registerNewUser(auth:Auth): Promise<PostListItem[]>{
         })
         .catch(console.error)
 }
+
+export function loadCategories(): Promise<Category[]>{
+   
+    const options = {
+        url: '/categories',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }
+    return axios(options)
+        .then(response => {
+            console.log(response)
+            if(response.data.error) throw new Error(response.data.error)
+            return response.data
+        })
+        .catch(console.error)
+}
