@@ -52,7 +52,18 @@
         $subcategory_id = intval($_POST['subcategory_id']);
         $insertion = "INSERT INTO notice (title, user_id, content, subcategory_id) VALUES ('$title', '$user_id', '$content', '$subcategory_id')";
         if (mysqli_query($mysqli, $insertion)) {
-            echo "New record created successfully";
+            $last_id = mysqli_insert_id($mysqli);
+            if ($last_id) {
+            $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id=$last_id");
+            if ($query) {
+                $records = [];
+                while ($record = mysqli_fetch_assoc($query)) {
+                    $records[] = $record;
+                }
+            }
+        $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);
+        echo $shipment;
+    }
         } else {
             echo "Error: " . $insertion . "<br>" . mysqli_error($mysqli);
         }
