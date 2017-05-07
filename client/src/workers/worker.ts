@@ -5,13 +5,10 @@ import * as api from './api'
 interface State {
 // data
     posts: Array<PostListItem>
-    user_id: string
-
 }
 
 const state: State = {
     posts: [],
-    user_id: ''
 }
 
 function onMessage(event) {
@@ -48,7 +45,6 @@ function onMessage(event) {
             api.registerNewUser(payload)
                 .then(response => {
                     const user = response[0]
-                    state.user_id = user.id
                     self.postMessage.apply(null,[{type: Actions.REGISTER_NEW_USER, payload: user.id}])
                 }).catch(error => {
                     console.log('registration error send error to registration dialog')

@@ -19,7 +19,6 @@ export default class PostItem extends React.Component<Props, State> {
 
         this.deletePostItem = this.deletePostItem.bind(this)
         this.editPostItem = this.editPostItem.bind(this)
-        
     }
 
     deletePostItem(){
@@ -34,7 +33,6 @@ export default class PostItem extends React.Component<Props, State> {
 
     render() {
         const {post, userID} = this.props
-        console.log(post.user_id+'  '+userID)
         const buttonGroup = (post.user_id != userID) ? null : (
             <div className={styles['button-group']}>
                 <button className="btn btn-default btn-sm"
