@@ -40,9 +40,11 @@ function onMessage(event) {
         case Actions.UPDATE_POST_ITEM:
             api.updatePosts(payload)
                 .then(response => {
-                    
+                    const post = response[0]
+                    const idx = state.posts.findIndex(item => item.id == post.id)
+                    state.posts[idx] = post
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
                 })
-
             break
         case Actions.SEARCH_POST_ITEM: 
             self.postMessage.apply(null, [{
