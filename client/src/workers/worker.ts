@@ -40,8 +40,10 @@ function onMessage(event) {
                     item.content.toUpperCase().includes(payload.toUpperCase())))
             }])
             break
-            
-
+        case Actions.ADD_NEW_POST:
+            api.addPosts(payload)
+            .then(console.log)
+            break
 // display
         case Actions.SHOW_NEW_POST_MODAL:
             state.newPostModalIsVisible = payload
