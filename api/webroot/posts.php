@@ -12,7 +12,7 @@
     if ('GET' === $method) {
         $last = intval($_GET['last']);
         if (!$last) {
-            $query = mysqli_query($mysqli, "SELECT * FROM `notice` ORDER BY id DESC");
+            $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id ORDER BY id DESC");
             if ($query) {
                 $records = [];
                 while ($record = mysqli_fetch_assoc($query)) {
@@ -24,7 +24,7 @@
         }
 
         if ($last) {
-            $query = mysqli_query($mysqli, "SELECT * FROM notice ORDER BY id DESC LIMIT 0, $last");
+            $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id ORDER BY id DESC LIMIT 0, $last");
             if ($query) {
                 $records = [];
                 while ($record = mysqli_fetch_assoc($query)) {
