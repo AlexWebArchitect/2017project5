@@ -71,3 +71,25 @@ export function updatePosts(post: Post): Promise<PostListItem[]>{
         })
         .catch(console.error)
 }
+
+interface Auth {
+    login: string
+    password: string
+}
+export function registerNewUser(auth:Auth): Promise<PostListItem[]>{
+   
+    const options = {
+        url: '/posts',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }, 
+        data: qs.stringify(auth)
+    }
+    return axios(options)
+        .then(response => {
+            if(response.data.error) throw new Error(response.data.error)
+            return response.data
+        })
+        .catch(console.error)
+}
