@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function loadLastPosts(): Promise<PostListItem[]>{
     const options = {
-        url: '/posts.json',
+        url: '/posts',
         method: 'GET'
     }
 

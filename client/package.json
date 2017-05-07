@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --history-api-fallback --hot --inline --progress --colors --port 3000",
-    "build": "rimraf dist && webpack -p --progress --colors && cpx ./src/posts.json ./dist && node ./src/server",
+    "build": "rimraf dist && webpack -p --progress --colors && cpx ./src/posts ./dist && node ./src/server",
     "qq": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

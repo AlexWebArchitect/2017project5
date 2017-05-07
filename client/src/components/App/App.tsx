@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PostList from '../PostList'
 import NewPostModal from '../NewPostModal'
+import NavBar from '../NavBar'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 
@@ -31,19 +32,11 @@ export default class App extends React.Component<Props, State> {
     renderPostList(){
         return !this.state.posts.length ? null : <PostList posts={this.state.posts}/>
     }
-     renderNewPostButton(){
-         return (
-             <button className="btn btn-default"
-                onClick={()=>itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})}>
-               +
-             </button>
-         )
-     }
 
     render() {
         return (
             <div>
-                {this.renderNewPostButton()}
+                <NavBar/>
                 {this.renderPostList()}
                 <NewPostModal/>
             </div>
