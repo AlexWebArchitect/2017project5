@@ -2,6 +2,7 @@ import * as React from 'react'
 import PostList from '../PostList'
 import NewPostModal from '../NewPostModal'
 import EditPostModal from '../EditPostModal'
+import RegistrationModal from '../RegistrationModal'
 import NavBar from '../NavBar'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
@@ -40,6 +41,7 @@ export default class App extends React.Component<Props, State> {
                 {this.renderPostList()}
                 <NewPostModal/>
                 <EditPostModal/>
+                <RegistrationModal/>
             </div>
         )
 
