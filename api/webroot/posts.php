@@ -12,7 +12,7 @@
     if ('GET' === $method) {
         $last = intval($_GET['last']);
         if (!$last) {
-            $query = mysqli_query($mysqli, "SELECT * FROM `notice`");
+            $query = mysqli_query($mysqli, "SELECT * FROM `notice` ORDER BY id DESC");
             if ($query) {
                 $records = [];
                 while ($record = mysqli_fetch_assoc($query)) {
