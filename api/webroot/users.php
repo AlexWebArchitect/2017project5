@@ -40,8 +40,9 @@
         if ($result=mysqli_query($mysqli, "SELECT * FROM user WHERE login='$login'")) {
             if (mysqli_num_rows($result) > 0) {
                 if ($password === mysqli_fetch_assoc($result)['password']) {
+                    $result=mysqli_query($mysqli, "SELECT * FROM user WHERE login='$login'");
                     $records = [];
-                    while ($record = mysqli_fetch_assoc($query)) {
+                    while ($record = mysqli_fetch_assoc($result)) {
                         $records[] = $record;
                     }       
                     $shipment = json_encode($records, JSON_UNESCAPED_UNICODE);

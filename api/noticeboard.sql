@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 07, 2017 at 11:18 AM
+-- Generation Time: May 07, 2017 at 04:50 PM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -55,36 +55,17 @@ CREATE TABLE `notice` (
   `user_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `subcategory_id` int(11) NOT NULL
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notice`
 --
 
-INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `subcategory_id`) VALUES
+INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `category_id`) VALUES
 (1, 'Продаю Cavalcade', 1, '4-door SUV\r\n5000$', '2017-04-26 21:00:00', 1),
 (2, 'Куплю Sultan RS', 1, 'phone: \r\n555-0100', '2017-04-27 08:27:07', 1),
 (52, 'Turismo', 1, 'Где найти туризму???', '2017-05-01 08:21:43', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subcategory`
---
-
-CREATE TABLE `subcategory` (
-  `id` int(11) NOT NULL,
-  `type` tinytext NOT NULL,
-  `category_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `subcategory`
---
-
-INSERT INTO `subcategory` (`id`, `type`, `category_id`) VALUES
-(1, 'Авто', 1);
 
 -- --------------------------------------------------------
 
@@ -121,14 +102,7 @@ ALTER TABLE `category`
 ALTER TABLE `notice`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `subcategory_id` (`subcategory_id`);
-
---
--- Indexes for table `subcategory`
---
-ALTER TABLE `subcategory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idCategory` (`category_id`);
+  ADD KEY `subcategory_id` (`category_id`);
 
 --
 -- Indexes for table `user`
@@ -151,11 +125,6 @@ ALTER TABLE `category`
 ALTER TABLE `notice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
--- AUTO_INCREMENT for table `subcategory`
---
-ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -169,13 +138,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `notice`
   ADD CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`);
-
---
--- Constraints for table `subcategory`
---
-ALTER TABLE `subcategory`
-  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+  ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

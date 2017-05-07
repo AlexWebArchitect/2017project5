@@ -29,7 +29,7 @@
                 var $content = $content_id.val();
                 var http = new XMLHttpRequest();
                 var url = "http://localhost:8000/posts";
-                var params = "title="+$title+"&user_id=1&content="+$content+"&subcategory_id=1";
+                var params = "title="+$title+"&user_id=1&content="+$content+"&category_id=1";
                 http.open("POST", url, true);
 
                 //Send the proper header information along with the request
