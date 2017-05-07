@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 07, 2017 at 04:50 PM
+-- Generation Time: May 07, 2017 at 06:29 PM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -32,14 +32,14 @@ USE `noticeboard`;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `title` tinytext NOT NULL
+  `name` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `title`) VALUES
+INSERT INTO `category` (`id`, `name`) VALUES
 (1, 'Продажа'),
 (2, 'Работа');
 

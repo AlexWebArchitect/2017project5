@@ -9,7 +9,7 @@
 	}
     
     $method = $_SERVER['REQUEST_METHOD'];
-        if ('GET' === $method) {
+    if ('GET' === $method) {
         $query = mysqli_query($mysqli, "SELECT * FROM `category` ORDER BY id DESC");
         if ($query) {
             $records = [];
