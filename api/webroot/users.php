@@ -37,7 +37,7 @@
     if ('POST' === $method) {
         $login = $_POST['login'];
         $password = $_POST['password'];
-        $insertion = "INSERT INTO user (login, password) VALUES ($login', '$password')";
+        $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
         if (mysqli_query($mysqli, $insertion)) {
             $last_id = mysqli_insert_id($mysqli);
             if ($last_id) {
