@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 07, 2017 at 11:13 AM
+-- Generation Time: May 07, 2017 at 11:18 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -95,16 +95,15 @@ INSERT INTO `subcategory` (`id`, `type`, `category_id`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `login` tinytext NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `access_token` char(40) NOT NULL
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `login`, `password`, `access_token`) VALUES
-(1, 'NicoBellic2468XX', '1234', 'f6855189-4e5a-4a31-8c17-9f5a4a11d877');
+INSERT INTO `user` (`id`, `login`, `password`) VALUES
+(1, 'NicoBellic2468XX', '1234');
 
 --
 -- Indexes for dumped tables
@@ -135,8 +134,7 @@ ALTER TABLE `subcategory`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `access_token` (`access_token`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
