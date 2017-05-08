@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 07, 2017 at 06:29 PM
+-- Generation Time: May 08, 2017 at 07:54 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -40,8 +40,11 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'Продажа'),
-(2, 'Работа');
+(1, 'general'),
+(2, 'sell/buy'),
+(3, 'work'),
+(4, 'music'),
+(5, 'politics');
 
 -- --------------------------------------------------------
 
@@ -118,7 +121,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `notice`
 --
