@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 06, 2017 at 12:59 PM
+-- Generation Time: May 08, 2017 at 07:54 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -32,16 +32,19 @@ USE `noticeboard`;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `title` tinytext NOT NULL
+  `name` tinytext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `title`) VALUES
-(1, 'Продажа'),
-(2, 'Работа');
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'general'),
+(2, 'sell/buy'),
+(3, 'work'),
+(4, 'music'),
+(5, 'politics');
 
 -- --------------------------------------------------------
 
@@ -55,36 +58,17 @@ CREATE TABLE `notice` (
   `user_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `subcategory_id` int(11) NOT NULL
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `notice`
 --
 
-INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `subcategory_id`) VALUES
+INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `category_id`) VALUES
 (1, 'Продаю Cavalcade', 1, '4-door SUV\r\n5000$', '2017-04-26 21:00:00', 1),
 (2, 'Куплю Sultan RS', 1, 'phone: \r\n555-0100', '2017-04-27 08:27:07', 1),
 (52, 'Turismo', 1, 'Где найти туризму???', '2017-05-01 08:21:43', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subcategory`
---
-
-CREATE TABLE `subcategory` (
-  `id` int(11) NOT NULL,
-  `type` tinytext NOT NULL,
-  `idCategory` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `subcategory`
---
-
-INSERT INTO `subcategory` (`id`, `type`, `idCategory`) VALUES
-(1, 'Авто', 1);
 
 -- --------------------------------------------------------
 
@@ -94,18 +78,16 @@ INSERT INTO `subcategory` (`id`, `type`, `idCategory`) VALUES
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `login` tinytext NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `email` tinytext NOT NULL
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `type`, `login`, `password`, `email`) VALUES
-(1, 0, 'NicoBellic2468XX', '1234', 'faggBRO360xxzzZ@gmail.com');
+INSERT INTO `user` (`id`, `login`, `password`) VALUES
+(1, 'NicoBellic2468XX', '1234');
 
 --
 -- Indexes for dumped tables
@@ -123,14 +105,7 @@ ALTER TABLE `category`
 ALTER TABLE `notice`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `subcategory_id` (`subcategory_id`);
-
---
--- Indexes for table `subcategory`
---
-ALTER TABLE `subcategory`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idCategory` (`idCategory`);
+  ADD KEY `subcategory_id` (`category_id`);
 
 --
 -- Indexes for table `user`
@@ -146,17 +121,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
---
--- AUTO_INCREMENT for table `subcategory`
---
-ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -171,13 +141,7 @@ ALTER TABLE `user`
 --
 ALTER TABLE `notice`
   ADD CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategory` (`id`);
-
---
--- Constraints for table `subcategory`
---
-ALTER TABLE `subcategory`
-  ADD CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`idCategory`) REFERENCES `category` (`id`);
+  ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

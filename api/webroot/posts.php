@@ -12,7 +12,7 @@
     if ('GET' === $method) {
         $last = intval($_GET['last']);
         if (!$last) {
-            $query = mysqli_query($mysqli, "SELECT * FROM `notice` ORDER BY id DESC");
+            $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id ORDER BY id DESC");
             if ($query) {
                 $records = [];
                 while ($record = mysqli_fetch_assoc($query)) {
@@ -24,7 +24,7 @@
         }
 
         if ($last) {
-            $query = mysqli_query($mysqli, "SELECT * FROM notice ORDER BY id DESC LIMIT 0, $last");
+            $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id ORDER BY id DESC LIMIT 0, $last");
             if ($query) {
                 $records = [];
                 while ($record = mysqli_fetch_assoc($query)) {
@@ -53,12 +53,12 @@
         $title = $_POST['title'];
         $user_id = intval($_POST['user_id']);
         $content = $_POST['content'];
-        $subcategory_id = intval($_POST['subcategory_id']);
-        $insertion = "INSERT INTO notice (title, user_id, content, subcategory_id) VALUES ('$title', '$user_id', '$content', '$subcategory_id')";
+        $category_id = intval($_POST['category_id']);
+        $insertion = "INSERT INTO notice (title, user_id, content, category_id) VALUES ('$title', '$user_id', '$content', '$category_id')";
         if (mysqli_query($mysqli, $insertion)) {
             $last_id = mysqli_insert_id($mysqli);
-            if ($last_id) {
-                $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id=$last_id");
+            if ($last_id) { 
+                $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id WHERE notice.id=$last_id");
                 if ($query) {
                     $records = [];
                     while ($record = mysqli_fetch_assoc($query)) {
@@ -82,7 +82,7 @@
         $content = $_PUT['content'];
         $edition = "UPDATE notice SET title='$title', content='$content' WHERE id='$id'";
         if (mysqli_query($mysqli, $edition)) {
-             $query = mysqli_query($mysqli, "SELECT * FROM notice WHERE id='$id'");
+             $query = mysqli_query($mysqli, "SELECT notice.*, user.login FROM `notice` INNER JOIN user ON notice.user_id = user.id WHERE notice.id='$id'");
                 if ($query) {
                     $records = [];
                     while ($record = mysqli_fetch_assoc($query)) {

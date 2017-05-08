@@ -1,0 +1,21 @@
+@import "../../constants/variables.css";
+
+.overlay {
+    @apply --overlay;
+}
+
+.dialog {
+    height: 80%;
+    /*overflow: hidden;*/
+    overflow: scroll;
+}
+.body {
+    height: 100%;
+}
+ .video-wrapper {
+    background-image:url('http://www.piedpiper.com/app/themes/pied-piper/dist/images/header-fallback-large.jpg' );
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+}

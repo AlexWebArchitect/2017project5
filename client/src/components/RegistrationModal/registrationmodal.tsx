@@ -1,7 +1,9 @@
 import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
-import * as styles from './new-post-modal.css'
+import * as styles from './registrationmodal.css'
+
+
 interface Props {
     // empty
 }
@@ -9,38 +11,43 @@ interface State {
     visible: boolean
 }
 
-export default class NewPostModal extends React.Component<Props, State> {
+export default class RegistrationModal extends React.Component<Props, State> {
 
-    private title: HTMLInputElement
-    private content: HTMLTextAreaElement
+    private login: HTMLInputElement
+    private password: HTMLInputElement
 
     constructor(props: Props){
         super(props)
 
-        this.state = { visible: false }
+        this.state = { visible: false}
 
         this.closeModal = this.closeModal.bind(this)
         this.showModal = this.showModal.bind(this)
         this.submitForm = this.submitForm.bind(this)
+        this.registerNewUser = this.registerNewUser.bind(this)
     }
 
     componentDidMount(){
-        itworx.subscribe(Actions.SHOW_NEW_POST_MODAL, this.showModal)
+        itworx.subscribe(Actions.SHOW_REGISTRATION_MODAL, this.showModal)
+        itworx.subscribe(Actions.REGISTER_NEW_USER, this.registerNewUser)
+    }
+
+    registerNewUser(action: Action){
+        window.localStorage.setItem('user', action.payload)
+        this.closeModal()
+        itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
     }
 
     showModal(action: Action){
         this.setState({visible: action.payload})
     }
     closeModal() {
-        itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: false})
+        this.setState({visible: false})
     }
 
     submitForm(){
-        const user_id = window.localStorage.getItem('user')
-        const title = this.title.value
-        const content = this.content.value
-        itworx.dispatch({type: Actions.ADD_NEW_POST, payload: { user_id, title, content} })
-        this.closeModal()
+        const payload = {login: this.login.value, password: this.password.value}
+        itworx.dispatch({type: Actions.REGISTER_NEW_USER, payload })
     }
 
     render(){
@@ -59,19 +66,19 @@ export default class NewPostModal extends React.Component<Props, State> {
                             onClick={this.closeModal}>
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 className="modal-title">Add Post</h4>
+                        <h4 className="modal-title">Registration Form</h4>
                     </div>
                     <div className="modal-body">
                          <div className="form-group">
                             <input type="text" 
                                 className="form-control" 
-                                ref={element=>this.title=element}
-                                placeholder="Title"/>
+                                ref={element=>this.login=element}
+                                placeholder="Login"/>
                         </div>
-                        <textarea type="text" 
+                        <input type="text" 
                             className="form-control" 
-                            ref={element=>this.content=element}
-                            placeholder="type ypur post here"/>
+                            ref={element=>this.password=element}
+                            placeholder="password"/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" 

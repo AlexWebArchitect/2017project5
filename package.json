@@ -1,0 +1,27 @@
+{
+  "name": "board",
+  "version": "1.0.0",
+  "description": "post board",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd api && docker-compose build && docker-compose up -d && docker exec database.dev bash /tmp/import.sh",
+    "down": "cd api && docker-compose down",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexWebArchitect/2017project5.git"
+  },
+  "keywords": [
+    "typescript",
+    "react",
+    "php",
+    "docker"
+  ],
+  "author": "AlexWebArchitect",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexWebArchitect/2017project5/issues"
+  },
+  "homepage": "https://github.com/AlexWebArchitect/2017project5#readme"
+}

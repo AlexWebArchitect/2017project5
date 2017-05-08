@@ -11,12 +11,14 @@ interface State {
 export default class PostList extends React.Component<Props, State>{
 
     render(){
+        const userID = window.localStorage.getItem('user')
+
         const posts = this.props.posts.map(post => (
             <li key={post.id}
                 className={styles.item}>
-                <PostItem post={post}/>
+                <PostItem post={post} userID={userID}/>
             </li>
         ))
-        return <ul className={styles.item}>{posts}</ul>
+        return <ul className={styles.item}><br/><br/><br/>{posts}</ul>
     }
 }
