@@ -28,16 +28,16 @@ function onMessage(event) {
             break      
         case Actions.LOAD_LAST_POSTS:
             api.loadLastPosts()
-            .then(payload => {
-                state.posts = payload
-                self.postMessage.apply(null, [{type: Actions.LOAD_LAST_POSTS, payload}])
+            .then(response => {
+                state.posts = response
+                self.postMessage.apply(null, [{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
             })
             break
         case Actions.DELETE_POST_ITEM:
             api.deletePosts(payload)
                 .then(response => {
                     state.posts = state.posts.filter(item => item.id != payload)
-                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
                 })
             break
         case Actions.EDIT_POST_ITEM: 
@@ -49,7 +49,7 @@ function onMessage(event) {
                     const post = response[0]
                     const idx = state.posts.findIndex(item => item.id == post.id)
                     state.posts[idx] = post
-                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
                 })
             break
         case Actions.REGISTER_NEW_USER:
@@ -66,15 +66,16 @@ function onMessage(event) {
             self.postMessage.apply(null, [{
                 type: Actions.LOAD_LAST_POSTS, 
                 payload: state.posts.filter(item => (
+                    item.category_id == state.current.id &&
                     item.title.toUpperCase().includes(payload.toUpperCase()) || 
                     item.content.toUpperCase().includes(payload.toUpperCase())))
             }])
             break
         case Actions.ADD_NEW_POST:
             api.addPosts(payload)
-                .then(post => {
-                    state.posts = [...post,...state.posts]
-                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: state.posts}])
+                .then(response => {
+                    state.posts = [...response,...state.posts]
+                    self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
                 })
             break
 // display
@@ -93,9 +94,13 @@ function onMessage(event) {
         case Actions.SET_CURRENT_CATEGORY:
             state.current = payload
             self.postMessage.apply(null, [{type: Actions.SET_CURRENT_CATEGORY, payload }])
+            self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
             break
     }
 }
 
 self.addEventListener('message', onMessage)
 
+function getPosts(state: State): Array <PostListItem> {
+   return state.posts.filter(item => item.category_id == state.current.id)
+}
