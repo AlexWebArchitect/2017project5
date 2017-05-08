@@ -2,3 +2,16 @@
     position: fixed;
     z-index: 2;
 }
+
+.hidden{
+    display: none;
+}
+.visible {
+    display: block;
+}
+
+.button{
+    position: absolute;
+    top: 8px;
+    right: 20px;
+}
