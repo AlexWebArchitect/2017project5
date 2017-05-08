@@ -72,7 +72,7 @@ function onMessage(event) {
             }])
             break
         case Actions.ADD_NEW_POST:
-            api.addPosts(payload)
+            api.addPosts({...payload, category_id: state.current.id})
                 .then(response => {
                     state.posts = [...response,...state.posts]
                     self.postMessage.apply(null,[{type: Actions.LOAD_LAST_POSTS, payload: getPosts(state)}])
