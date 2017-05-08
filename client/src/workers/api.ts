@@ -104,7 +104,6 @@ export function loadCategories(): Promise<Category[]>{
     }
     return axios(options)
         .then(response => {
-            console.log(response)
             if(response.data.error) throw new Error(response.data.error)
             return response.data
         })

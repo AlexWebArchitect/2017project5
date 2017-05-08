@@ -3,7 +3,6 @@ import PostList from '../PostList'
 import NewPostModal from '../NewPostModal'
 import EditPostModal from '../EditPostModal'
 import RegistrationModal from '../RegistrationModal'
-import Categories from '../Categories'
 import NavBar from '../NavBar'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
@@ -26,7 +25,7 @@ export default class App extends React.Component<Props, State> {
 
    componentDidMount(){
         itworx.subscribe(Actions.LOAD_LAST_POSTS, this.loadLastPosts)
-        itworx.subscribe(Actions.LOAD_CATEGORIES, this.loadCategories)
+        // itworx.subscribe(Actions.LOAD_CATEGORIES, this.loadCategories)
         itworx.dispatch({type: Actions.LOAD_CATEGORIES})
         itworx.dispatch({type: Actions.LOAD_LAST_POSTS})
 
@@ -37,7 +36,8 @@ export default class App extends React.Component<Props, State> {
     }
 
     loadCategories(action: Action) {
-         this.setState({categories: action.payload})
+        // console.log(action)
+        // this.setState({categories: action.payload})
     }
 
     renderPostList(){
@@ -48,8 +48,8 @@ export default class App extends React.Component<Props, State> {
         return (
             <div>
                 <NavBar/>
-                {/*{this.renderPostList()}*/}
-                <Categories categories={this.state.categories}/>
+                {this.renderPostList()}
+                {/*<Categories categories={this.state.categories}/>*/}
                 <NewPostModal/>
                 <EditPostModal/>
                 <RegistrationModal/>

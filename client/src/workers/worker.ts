@@ -6,11 +6,13 @@ interface State {
 // data
     posts: Array<PostListItem>
     categories: Array<Category>
+    current: Category
 }
 
 const state: State = {
     posts: [],
-    categories: []
+    categories: [],
+    current: {id: '1', name: 'general'}
 }
 
 function onMessage(event) {
@@ -87,6 +89,10 @@ function onMessage(event) {
                 type: Actions.LOAD_LAST_POSTS, 
                 payload: state.posts.filter(item => item.user_id == payload)
             }])
+            break
+        case Actions.SET_CURRENT_CATEGORY:
+            state.current = payload
+            self.postMessage.apply(null, [{type: Actions.SET_CURRENT_CATEGORY, payload }])
             break
     }
 }
