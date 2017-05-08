@@ -19,6 +19,6 @@ export default class PostList extends React.Component<Props, State>{
                 <PostItem post={post} userID={userID}/>
             </li>
         ))
-        return <ul className={styles.item}>{posts}</ul>
+        return <ul className={styles.item}><br/><br/><br/>{posts}</ul>
     }
 }

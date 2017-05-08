@@ -63,7 +63,7 @@ export default class NavBar extends React.Component <Props, State> {
         ))
 
         return(
-            <nav className="navbar navbar-default">
+            <nav className="navbar navbar-default navbar-fixed-top">
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <ul className="nav navbar-nav">
