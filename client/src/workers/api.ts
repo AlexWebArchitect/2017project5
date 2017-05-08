@@ -19,7 +19,7 @@ interface Post{
     user_id?: string
 }
 export function addPosts(post:Post): Promise<PostListItem[]>{
-    const data = qs.stringify({...post, category_id: "1"})
+    const data = qs.stringify(post)
     const options = {
         url: '/posts',
         method: 'POST',
