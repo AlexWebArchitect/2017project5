@@ -52,7 +52,7 @@ export default class PostItem extends React.Component<Props, State> {
             </div>
         )
 
-        const date = <span>{new Date(post.date).toLocaleDateString('Ru')}</span>
+      //  const date = <span>{new Date(post.date).toLocaleDateString('Ru')}</span>
         const user = <span className={styles.user}
             onClick={this.sortByUser}>{post.login}</span>
 
@@ -62,7 +62,7 @@ export default class PostItem extends React.Component<Props, State> {
                 <h4>{post.title}</h4>
                 <p>{post.content}</p>
                 <br/>
-                <div><small>{date} : {user}</small></div>
+                <div><small>{post.date} {user}</small></div>
                 {buttonGroup}
             </div>
         )
