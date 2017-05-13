@@ -4,6 +4,7 @@ import * as styles from './navbar.css'
 import * as STR from '../../constants/strings'
 
 import Logout from './logout'
+import User from './user'
 import itworx from '../../workers/itworx'
 
 interface Props {}
@@ -96,6 +97,7 @@ export default class NavBar extends React.Component <Props, State> {
                         </div>
                         <div className="navbar-form navbar-right">
                             <div className="form-group">
+                                <User/>
                                 <input type="text" 
                                     className="form-control" 
                                     onKeyUp={this.searchPost}
