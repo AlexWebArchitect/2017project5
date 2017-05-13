@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 12, 2017 at 07:09 PM
+-- Generation Time: May 13, 2017 at 01:24 PM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -40,10 +40,10 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(1, 'general'),
-(2, 'sell/buy'),
-(3, 'job'),
-(4, 'gossip');
+(1, 'общая'),
+(2, 'купля-продажа'),
+(3, 'работа'),
+(4, 'подслушано');
 
 -- --------------------------------------------------------
 
@@ -94,23 +94,24 @@ INSERT INTO `notice` (`id`, `title`, `user_id`, `content`, `date`, `category_id`
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `login` tinytext NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(32) NOT NULL,
+  `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `login`, `password`) VALUES
-(1, 'NicoBellic2468XX', '1234'),
-(3, 'дебил', '1234'),
-(4, '3-ий курс', '1234'),
-(5, '2ая группа', '1234'),
-(6, '', '1234'),
-(7, 'test', ''),
-(8, 'pasha', 'markov'),
-(9, 'Rarity ', 'meow'),
-(10, 'vadim', 'vadim');
+INSERT INTO `user` (`id`, `login`, `password`, `email`) VALUES
+(1, 'NicoBellic2468XX', '1234', 'supermail@mail.ru'),
+(3, 'дебил', '1234', 'debil@mail.ru'),
+(4, '3-ий курс', '1234', 'cool@mail.ru'),
+(5, '2ая группа', '1234', '5151@mail.ru'),
+(6, '', '1234', ''),
+(7, 'test', '', ''),
+(8, 'pasha', 'markov', 'pasha@mail.ru'),
+(9, 'Rarity ', 'meow', 'rarity@mail.ru'),
+(10, 'vadim', 'vadim', 'vadim@mail.ru');
 
 --
 -- Indexes for dumped tables

@@ -37,6 +37,7 @@
     if ('POST' === $method) {
         $login = $_POST['login'];
         $password = $_POST['password'];
+        $email = $_POST['email'];
         if ($result=mysqli_query($mysqli, "SELECT * FROM user WHERE login='$login'")) {
             if (mysqli_num_rows($result) > 0) {
                 if ($password === mysqli_fetch_assoc($result)['password']) {
@@ -54,7 +55,7 @@
                     echo $error;
                 }
             } else {
-                $insertion = "INSERT INTO user (login, password) VALUES ('$login', '$password')";
+                $insertion = "INSERT INTO user (login, password, email) VALUES ('$login', '$password', '$email')";
                 if (mysqli_query($mysqli, $insertion)) {
                     $last_id = mysqli_insert_id($mysqli);
                     if ($last_id) {
