@@ -2,6 +2,7 @@ import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 import * as styles from './navbar.css'
+import * as STR from '../../constants/strings'
 
 interface Props {}
 interface State {
@@ -89,11 +90,11 @@ export default class NavBar extends React.Component <Props, State> {
                                 <input type="text" 
                                     className="form-control" 
                                     onKeyUp={this.searchPost}
-                                    placeholder="Search"/>
+                                    placeholder={STR.SEARCH}/>
                                 <button className="btn btn-default"
                                     onClick={this.newPost}>
                                     <span className="glyphicon glyphicon-plus"/>
-                                    &nbsp;New Post
+                                    &nbsp; {STR.ADD_POST}
                                 </button>
                             </div>
                         </div>
