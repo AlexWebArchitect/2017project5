@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 08, 2017 at 07:54 AM
+-- Generation Time: May 08, 2017 at 12:49 PM
 -- Server version: 5.7.18
 -- PHP Version: 7.0.16
 
@@ -42,9 +42,8 @@ CREATE TABLE `category` (
 INSERT INTO `category` (`id`, `name`) VALUES
 (1, 'general'),
 (2, 'sell/buy'),
-(3, 'work'),
-(4, 'music'),
-(5, 'politics');
+(3, 'job'),
+(4, 'gossip');
 
 -- --------------------------------------------------------
 

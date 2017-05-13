@@ -2,6 +2,7 @@ import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 import * as styles from './editpostmodal.css'
+import * as STR from '../../constants/strings'
 
 interface Props {}
 interface State {
@@ -65,7 +66,7 @@ export default class EditPostModal extends React.Component <Props, State> {
                             onClick={this.closeModal}>
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 className="modal-title">Edit Post</h4>
+                        <h4 className="modal-title">{STR.EDIT_POST}</h4>
                     </div>
                     <div className="modal-body">
                          <div className="form-group">
@@ -73,25 +74,25 @@ export default class EditPostModal extends React.Component <Props, State> {
                                 className="form-control" 
                                 defaultValue={this.state.title}
                                 ref={element=>this.title=element}
-                                placeholder="Title"/>
+                                placeholder={STR.POST_TITLE}/>
                         </div>
                         <textarea type="text" 
                             className="form-control" 
                             defaultValue={this.state.content}
                             ref={element=>this.content=element}
-                            placeholder="type ypur post here"/>
+                            placeholder={STR.POST_CONTENT}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" 
                             className="btn btn-default" 
                             data-dismiss="modal"
                             onClick={this.closeModal}>
-                            Cancel
+                            {STR.CANCEL}
                         </button>
                         <button type="button" 
                             className="btn btn-primary"
                             onClick={this.submitForm}>
-                            Submit
+                            {STR.SUBMIT}
                         </button>
                     </div>
                 </div>

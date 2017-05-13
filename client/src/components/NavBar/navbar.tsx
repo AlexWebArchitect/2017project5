@@ -1,7 +1,11 @@
 import * as React from 'react'
-import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 import * as styles from './navbar.css'
+import * as STR from '../../constants/strings'
+
+import Logout from './logout'
+import User from './user'
+import itworx from '../../workers/itworx'
 
 interface Props {}
 interface State {
@@ -28,6 +32,7 @@ export default class NavBar extends React.Component <Props, State> {
         this.handleClick = this.handleClick.bind(this)
         this.loadCategories = this.loadCategories.bind(this)
         this.toggleMinibar = this.toggleMinibar.bind(this)
+        this.handleLogout = this.handleLogout.bind(this)
     }
 
     componentDidMount(){
@@ -64,6 +69,12 @@ export default class NavBar extends React.Component <Props, State> {
     handleClick(category: Category){
         itworx.dispatch({type: Actions.SET_CURRENT_CATEGORY, payload: category})
     }
+
+    handleLogout(){
+        window.localStorage.clear()
+        this.forceUpdate()
+    }
+
     render(){
 
         const menu = this.state.categories.map(item => (
@@ -86,15 +97,17 @@ export default class NavBar extends React.Component <Props, State> {
                         </div>
                         <div className="navbar-form navbar-right">
                             <div className="form-group">
+                                <User/>
                                 <input type="text" 
                                     className="form-control" 
                                     onKeyUp={this.searchPost}
-                                    placeholder="Search"/>
+                                    placeholder={STR.SEARCH}/>
                                 <button className="btn btn-default"
                                     onClick={this.newPost}>
                                     <span className="glyphicon glyphicon-plus"/>
-                                    &nbsp;New Post
+                                    &nbsp; {STR.ADD_POST}
                                 </button>
+                                <Logout onLogout={this.handleLogout}/>
                             </div>
                         </div>
                     </div>
