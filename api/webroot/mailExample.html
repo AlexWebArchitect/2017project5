@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
+        <script>
+            function shipMAIL() {
+                var $to = $('#to').val();
+                var $from_user = $('#from_user').val();
+                var $from_user = $('#from_user').val();
+                var $from_email = $('#from_email').val();
+                var $subject = $('#subject').val();
+                var $message = $('#message').val();
+                var http = new XMLHttpRequest();
+                var url = "mail.php";
+                var params = "to="+$to+"&from_user="+$from_user+"&from_email="+$from_email+"&subject="+$subject+"&message="+$message;
+                http.open("POST", url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        document.getElementById("response").innerHTML=this.responseText;
+                    }
+                }
+                http.send(params);
+            }
+        </script>
+    </head>
+    <body>
+        <p>alex.web.architect@gmail.com</p>
+        <br>
+        <p>hist3million@gmail.com</p>
+        <br>
+        <ul id="response"></ul>
+        <p>to: <input type="text" id="to"></p>
+        <p>from_user: <input type="text" id="from_user"></p>
+        <p>from_email: <input type="text" id="from_email"></p>
+        <p>subject: <input type="text" id="subject"></p>
+        <p>message: <input type="text" id="message"></p>
+        <button id="ship" onclick="shipMail()">shipit</button>
+    </body>
+</html>
