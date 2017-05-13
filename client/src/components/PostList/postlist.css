@@ -7,6 +7,10 @@
 
 .container{
     position: relative;
+    
+    &:hover button{
+        visibility: visible;
+    }
 }
 
 .button-group{
@@ -17,10 +21,6 @@
     & button {
         margin: 4px 5px 4px 0;
         visibility: hidden;
-    }
-
-    &:hover button{
-        visibility: visible;
     }
 }
 

@@ -7,7 +7,7 @@ import {EDIT_POST_ITEM, DELETE_POST_ITEM, SORT_BY_USER } from '../../constants/a
 interface Props {
     post: PostListItem
     userID: string
-}
+} 
 interface State {
     // empty 
 }
