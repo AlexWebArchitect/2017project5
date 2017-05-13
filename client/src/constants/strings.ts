@@ -7,3 +7,7 @@ export const CANCEL = 'Отмена'
 export const REGISTRATION_FORM = 'Заполните форму регистрации'
 export const LOGIN = 'логин'
 export const PASSWORD = 'пароль'
+
+export const NEW_POST = 'Добавить объявление'
+export const POST_TITLE = 'заголовок'
+export const POST_CONTENT = 'текст объявления'
