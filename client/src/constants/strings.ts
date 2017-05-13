@@ -1,1 +1,15 @@
 export const R_U_SURE = 'Вы уверены, что хотите удалить'
+export const SEARCH = 'Поиск'
+export const ADD_POST = 'Объявление'
+
+export const SUBMIT = 'Отправить'
+export const CANCEL = 'Отмена'
+export const LOGOUT = 'Выход'
+export const REGISTRATION_FORM = 'Заполните форму регистрации'
+export const LOGIN = 'логин'
+export const PASSWORD = 'пароль'
+
+export const NEW_POST = 'Добавить объявление'
+export const POST_TITLE = 'заголовок'
+export const POST_CONTENT = 'текст объявления'
+export const EDIT_POST = 'Редактировать объявление'
