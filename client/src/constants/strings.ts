@@ -4,6 +4,7 @@ export const ADD_POST = 'Объявление'
 
 export const SUBMIT = 'Отправить'
 export const CANCEL = 'Отмена'
+export const LOGOUT = 'Выход'
 export const REGISTRATION_FORM = 'Заполните форму регистрации'
 export const LOGIN = 'логин'
 export const PASSWORD = 'пароль'
