@@ -12,7 +12,7 @@ interface State {
 const state: State = {
     posts: [],
     categories: [],
-    current: {id: '1', name: 'general'}
+    current: {id: '1', name: 'общая'}
 }
 
 function onMessage(event) {
@@ -56,7 +56,7 @@ function onMessage(event) {
             api.registerNewUser(payload)
                 .then(response => {
                     const user = response[0]
-                    self.postMessage.apply(null,[{type: Actions.REGISTER_NEW_USER, payload: user.id}])
+                    self.postMessage.apply(null,[{type: Actions.REGISTER_NEW_USER, payload: user}])
                 }).catch(error => {
                     console.log('registration error send error to registration dialog')
                     console.error(error)

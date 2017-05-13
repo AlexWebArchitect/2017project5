@@ -9,8 +9,13 @@ interface State {}
 export default class  Logout extends React.Component <Props, State> {
     
     render(){
-        const userID = window.localStorage.getItem('user')
-        if(!userID) return null
+        try{
+            const online = JSON.parse(window.localStorage.getItem('user')).online
+            if(!online) return null
+    
+        } catch(error) {
+             return null
+        }
         return (
             <button className="btn btn-default"
                 onClick={this.props.onLogout}>

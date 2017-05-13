@@ -21,7 +21,7 @@ export default class NavBar extends React.Component <Props, State> {
         super(props)
 
         this.state = { 
-            current: {id: '1', name: 'general'}, 
+            current: {id: '1', name: 'общая'}, 
             categories: [],
             minibar: window.innerWidth < 768
         }
@@ -59,10 +59,13 @@ export default class NavBar extends React.Component <Props, State> {
     }
 
     newPost() {
-        const id = window.localStorage.getItem('user')
-        if(!!id)
-            itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
-        else 
+        try {
+            const online = JSON.parse(window.localStorage.getItem('user')).online
+            if(online) return itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
+
+        }catch(error){
+            console.log('u should register')
+        }
             itworx.dispatch({type: Actions.SHOW_REGISTRATION_MODAL, payload: true})
     }
 
@@ -71,7 +74,9 @@ export default class NavBar extends React.Component <Props, State> {
     }
 
     handleLogout(){
-        window.localStorage.clear()
+        const user = JSON.parse(window.localStorage.getItem('user'))
+        user.online = false
+        window.localStorage.setItem('user', JSON.stringify(user))
         this.forceUpdate()
     }
 
