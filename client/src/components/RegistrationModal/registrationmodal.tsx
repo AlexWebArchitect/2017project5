@@ -2,6 +2,7 @@ import * as React from 'react'
 import itworx from '../../workers/itworx'
 import * as Actions from '../../constants/actions'
 import * as styles from './registrationmodal.css'
+import * as STR from '../../constants/strings'
 
 
 interface Props {
@@ -66,31 +67,31 @@ export default class RegistrationModal extends React.Component<Props, State> {
                             onClick={this.closeModal}>
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 className="modal-title">Registration Form</h4>
+                        <h4 className="modal-title">{STR.REGISTRATION_FORM}</h4>
                     </div>
                     <div className="modal-body">
                          <div className="form-group">
                             <input type="text" 
                                 className="form-control" 
                                 ref={element=>this.login=element}
-                                placeholder="Login"/>
+                                placeholder={STR.LOGIN}/>
                         </div>
                         <input type="text" 
                             className="form-control" 
                             ref={element=>this.password=element}
-                            placeholder="password"/>
+                            placeholder={STR.PASSWORD}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" 
                             className="btn btn-default" 
                             data-dismiss="modal"
                             onClick={this.closeModal}>
-                            Cancel
+                            {STR.CANCEL}
                         </button>
                         <button type="button" 
                             className="btn btn-primary"
                             onClick={this.submitForm}>
-                            Submit
+                            {STR.SUBMIT}
                         </button>
                     </div>
                 </div>
