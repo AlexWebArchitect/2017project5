@@ -76,7 +76,7 @@ export default class RegistrationModal extends React.Component<Props, State> {
                                 ref={element=>this.login=element}
                                 placeholder={STR.LOGIN}/>
                         </div>
-                        <input type="text" 
+                        <input type="password" 
                             className="form-control" 
                             ref={element=>this.password=element}
                             placeholder={STR.PASSWORD}/>
