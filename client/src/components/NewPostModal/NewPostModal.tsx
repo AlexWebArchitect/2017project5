@@ -37,7 +37,7 @@ export default class NewPostModal extends React.Component<Props, State> {
     }
 
     submitForm(){
-        const user_id = window.localStorage.getItem('user')
+        const user_id = JSON.parse(window.localStorage.getItem('user')).id
         const title = this.title.value
         const content = this.content.value
         itworx.dispatch({type: Actions.ADD_NEW_POST, payload: { user_id, title, content} })

@@ -11,7 +11,8 @@ interface State {
 export default class PostList extends React.Component<Props, State>{
 
     render(){
-        const userID = window.localStorage.getItem('user')
+        const user = JSON.parse(window.localStorage.getItem('user'))
+        const userID = (!!user) ? user.id : undefined
 
         const posts = this.props.posts.map(post => (
             <li key={post.id}

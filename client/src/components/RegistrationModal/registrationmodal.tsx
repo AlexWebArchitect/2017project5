@@ -16,6 +16,7 @@ export default class RegistrationModal extends React.Component<Props, State> {
 
     private login: HTMLInputElement
     private password: HTMLInputElement
+    private email: HTMLInputElement
 
     constructor(props: Props){
         super(props)
@@ -34,7 +35,8 @@ export default class RegistrationModal extends React.Component<Props, State> {
     }
 
     registerNewUser(action: Action){
-        window.localStorage.setItem('user', action.payload)
+        const user = {...action.payload, online: true }
+        window.localStorage.setItem('user', JSON.stringify(user))
         this.closeModal()
         itworx.dispatch({type: Actions.SHOW_NEW_POST_MODAL, payload: true})
     }
@@ -47,12 +49,21 @@ export default class RegistrationModal extends React.Component<Props, State> {
     }
 
     submitForm(){
-        const payload = {login: this.login.value, password: this.password.value}
+        const payload = {
+            login: this.login.value, 
+            password: this.password.value,
+            email: this.email.value
+        }
         itworx.dispatch({type: Actions.REGISTER_NEW_USER, payload })
     }
 
     render(){
         if(!this.state.visible) return null
+        const user = window.localStorage.getItem('user')
+        const email = !!user ? null : <input type="email" 
+                            className="form-control" 
+                            ref={element=>this.email=element}
+                            placeholder={STR.EMAIL}/>
         return (
         <div className={styles.overlay} onClick={this.closeModal}>
             <div className={"modal-dialog"} 
@@ -76,10 +87,15 @@ export default class RegistrationModal extends React.Component<Props, State> {
                                 ref={element=>this.login=element}
                                 placeholder={STR.LOGIN}/>
                         </div>
+                        <div className="form-group">
                         <input type="password" 
                             className="form-control" 
                             ref={element=>this.password=element}
                             placeholder={STR.PASSWORD}/>
+                        </div>
+                        <div className="form-group">
+                            {email}
+                        </div>
                     </div>
                     <div className="modal-footer">
                         <button type="button" 
